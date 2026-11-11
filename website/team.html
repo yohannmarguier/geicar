@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <title>EcoSense - Team</title>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .bg-mint { background-color: #effceb; }
+    .bg-deep { background-color: #274e13; }
+    .bg-primary { background-color: #4f943c; }
+    .bg-medium { background-color: #73b54f; }
+    .bg-soft { background-color: #9fd08e; }
+    .bg-sage { background-color: #b8daac; }
+    .bg-hold { background-color: #FF69B4; }
+    
+    .text-deep { color: #274e13; }
+    .text-primary { color: #4f943c; }
+    .text-medium { color: #73b54f; }
+    
+    .border-primary { border-color: #4f943c; }
+    .border-soft { border-color: #9fd08e; }
+    .border-sage { border-color: #b8daac; }
+  </style>
+
+</head>
+<body class="bg-[#effceb] text-gray-800 font-sans flex flex-col min-h-screen">
+  
+  <!-- SHARED NAVIGATION BAR -->
+  <nav class="bg-[#274e13] text-white border-b border-[#274e13] sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-3 text-xl font-bold tracking-tight text-[#effceb]">
+        <i class="fa-solid fa-leaf text-[#9fd08e]"></i> <span>EcoSense</span>
+      </a>
+      <div class="hidden md:flex space-x-8 font-medium text-sm">
+        <a href="index.html" class="hover:text-[#FF69B4] transition ">Home</a>
+        <a href="documentation.html" class="hover:text-[#FF69B4] transition ">Documentation</a>
+        <a href="team.html" class="hover:text-[#FF69B4] transition text-[#FF69B4] font-bold underline underline-offset-8">Team</a>
+        <a href="car.html" class="hover:text-[#FF69B4] transition ">The Car</a>
+        <a href="get-yours.html" class="hover:text-[#FF69B4] transition ">Get Yours</a>
+      </div>
+      <a href="https://github.com/yohannmarguier/geicar" target="_blank" class="bg-[#4f943c] hover:bg-[#FF69B4] text-white px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shadow-sm">
+        <i class="fa-brands fa-github text-sm"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- TEAM SECTION CONTAINER -->
+<div class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full space-y-16">
+  
+  <!-- TITLE & INTRO -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <span class="inline-block bg-[#FF69B4]/15 text-[#274e13] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider border border-[#FF69B4]/40">
+      <i class="fa-solid fa-users text-[#4f943c] mr-1"></i> Meet The Engineers of the Lunch Team
+    </span>
+    <h1 class="text-3xl md:text-5xl font-extrabold text-[#274e13] tracking-tight">
+      Project Team & Organization
+    </h1>
+    <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+      A 7-member student engineering team at INSA Toulouse (GEI Department) working collaboratively across specialized technical domains.
+    </p>
+  </div>
+
+  <!-- SECTION 1: THE 7 TEAM MEMBERS WITH PHOTOS -->
+  <section id="team-members" class="space-y-6">
+    <div class="text-center md:text-left border-b border-[#9fd08e] pb-4">
+      <h2 class="text-2xl font-bold text-[#274e13] flex items-center gap-2 justify-center md:justify-start">
+        <i class="fa-solid fa-user-group text-[#4f943c]"></i> Team Members
+      </h2>
+      <p class="text-xs text-gray-500 mt-1">INSA Toulouse — 5th Year GEI Engineering Students</p>
+    </div>
+
+    <!-- GRID OF THE 7 MEMBERS -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
+      
+      <!-- Member 1: Adarsh -->
+      <div class="bg-white p-4 rounded-2xl border border-[#9fd08e] hover:border-[#FF69B4] hover:shadow-md transition text-center flex flex-col items-center justify-between">
+        <div class="w-20 h-20 bg-[#fde8ef] border-2 border-[#FF69B4] rounded-full overflow-hidden mb-3 flex items-center justify-center text-[#274e13] font-bold text-xl shadow-sm">
+          <img src="Document/adarsh.jpeg" alt="Adarsh" class="w-full h-full object-cover" onerror="this.remove();">
+        </div>
+        <h3 class="font-bold text-sm text-[#274e13]">Adarsh</h3>
+      </div>
+
+      <!-- Member 2: Bastien -->
+      <div class="bg-white p-4 rounded-2xl border border-[#9fd08e] hover:border-[#FF69B4] hover:shadow-md transition text-center flex flex-col items-center justify-between">
+        <div class="w-20 h-20 bg-[#fde8ef] border-2 border-[#FF69B4] rounded-full overflow-hidden mb-3 flex items-center justify-center text-[#274e13] font-bold text-xl shadow-sm">
+          <img src="Document/bastien.jpeg" alt="Bastien" class="w-full h-full object-cover" onerror="this.remove();">
+        </div>
+        <h3 class="font-bold text-sm text-[#274e13]">Bastien</h3>
+      </div>
+
+      <!-- Member 3: Emilie -->
+      <div class="bg-white p-4 rounded-2xl border border-[#9fd08e] hover:border-[#FF69B4] hover:shadow-md transition text-center flex flex-col items-center justify-between">
+        <div class="w-20 h-20 bg-[#fde8ef] border-2 border-[#FF69B4] rounded-full overflow-hidden mb-3 flex items-center justify-center text-[#274e13] font-bold text-xl shadow-sm">
+          <img src="Document/emilie.jpeg" alt="Emilie" class="w-full h-full object-cover" onerror="this.remove();">
+        </div>
+        <h3 class="font-bold text-sm text-[#274e13]">Emilie</h3>
+      </div>
+
+      <!-- Member 4: Joshua -->
+      <div class="bg-white p-4 rounded-2xl border border-[#9fd08e] hover:border-[#FF69B4] hover:shadow-md transition text-center flex flex-col items-center justify-between">
+        <div class="w-20 h-20 bg-[#fde8ef] border-2 border-[#FF69B4] rounded-full overflow-hidden mb-3 flex items-center justify-center text-[#274e13] font-bold text-xl shadow-sm">
+          <img src="Document/joshua.jpeg" alt="Joshua" class="w-full h-full object-cover" onerror="this.remove();">
+        </div>
+        <h3 class="font-bold text-sm text-[#274e13]">Joshua</h3>
+      </div>
+
+      <!-- Member 5: Marine -->
+      <div class="bg-white p-4 rounded-2xl border border-[#9fd08e] hover:border-[#FF69B4] hover:shadow-md transition text-center flex flex-col items-center justify-between">
+        <div class="w-20 h-20 bg-[#fde8ef] border-2 border-[#FF69B4] rounded-full overflow-hidden mb-3 flex items-center justify-center text-[#274e13] font-bold text-xl shadow-sm">
+          <img src="Document/marine.jpeg" alt="Marine" class="w-full h-full object-cover" onerror="this.remove();">
+        </div>
+        <h3 class="font-bold text-sm text-[#274e13]">Marine</h3>
+      </div>
+
+      <!-- Member 6: Melik -->
+      <div class="bg-white p-4 rounded-2xl border border-[#9fd08e] hover:border-[#FF69B4] hover:shadow-md transition text-center flex flex-col items-center justify-between">
+        <div class="w-20 h-20 bg-[#fde8ef] border-2 border-[#FF69B4] rounded-full overflow-hidden mb-3 flex items-center justify-center text-[#274e13] font-bold text-xl shadow-sm">
+          <img src="Document/melik.jpeg" alt="Melik" class="w-full h-full object-cover" onerror="this.remove();">
+        </div>
+        <h3 class="font-bold text-sm text-[#274e13]">Melik</h3>
+      </div>
+
+      <!-- Member 7: Yohann -->
+      <div class="bg-white p-4 rounded-2xl border border-[#9fd08e] hover:border-[#FF69B4] hover:shadow-md transition text-center flex flex-col items-center justify-between">
+        <div class="w-20 h-20 bg-[#fde8ef] border-2 border-[#FF69B4] rounded-full overflow-hidden mb-3 flex items-center justify-center text-[#274e13] font-bold text-xl shadow-sm">
+          <img src="Document/yohann.jpeg" alt="Yohann" class="w-full h-full object-cover" onerror="this.remove();">
+        </div>
+        <h3 class="font-bold text-sm text-[#274e13]">Yohann</h3>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: SUBTEAMS GRID -->
+<section id="subteams" class="space-y-6">
+  <div class="text-center md:text-left border-b border-[#9fd08e] pb-4">
+    <h2 class="text-2xl font-bold text-[#274e13] flex items-center gap-2 justify-center md:justify-start">
+      <i class="fa-solid fa-layer-group text-[#4f943c]"></i> Technical Subteams
+    </h2>
+    <p class="text-xs text-gray-500 mt-1">Task allocation matching project features and member specialties</p>
+  </div>
+
+  <!-- CONTENEUR FLEX CENTRÉ (PERMET DE CENTRER LES 2 DU BAS) -->
+  <div class="flex flex-wrap justify-center gap-6">
+    
+    <!-- 1. Energy & Power Telemetry -->
+    <div class="w-full md:w-[calc(33.333%-1rem)] max-w-sm bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition text-center flex flex-col justify-between">
+      <div>
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#9fd08e] text-xl">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h3 class="font-bold text-lg text-[#274e13] mb-2">Energy & Power Telemetry</h3>
+        <p class="text-xs text-gray-600 mb-4 leading-relaxed">Instantaneous & cumulative power tracking across vehicle components.</p>
+      </div>
+      <div>
+        <span class="inline-block bg-[#fde8ef] text-[#274e13] text-xs font-bold px-3 py-1 rounded-full border border-[#f48fb1]">Bastien, Emilie, Yohann, Melik</span>
+      </div>
+    </div>
+
+    <!-- 2. Autonomous Navigation -->
+    <div class="w-full md:w-[calc(33.333%-1rem)] max-w-sm bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition text-center flex flex-col justify-between">
+      <div>
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#9fd08e] text-xl">
+          <i class="fa-solid fa-compass"></i>
+        </div>
+        <h3 class="font-bold text-lg text-[#274e13] mb-2">Autonomous Navigation</h3>
+        <p class="text-xs text-gray-600 mb-4 leading-relaxed">SLAM mapping, NAV2 path planning, obstacle sensing, and safety thresholding (&le;10 cm).</p>
+      </div>
+      <div>
+        <span class="inline-block bg-[#fde8ef] text-[#274e13] text-xs font-bold px-3 py-1 rounded-full border border-[#f48fb1]">Joshua, Emilie, Adarsh, Marine</span>
+      </div>
+    </div>
+
+    <!-- 3. Collection & Arm Manipulation -->
+    <div class="w-full md:w-[calc(33.333%-1rem)] max-w-sm bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition text-center flex flex-col justify-between">
+      <div>
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#9fd08e] text-xl">
+          <i class="fa-solid fa-[#fa-gears] fa-gears"></i>
+        </div>
+        <h3 class="font-bold text-lg text-[#274e13] mb-2">Collection & Arm Manipulation</h3>
+        <p class="text-xs text-gray-600 mb-4 leading-relaxed">Robotic arm kinematics, end-effector control, and onboard container storage.</p>
+      </div>
+      <div>
+        <span class="inline-block bg-[#fde8ef] text-[#274e13] text-xs font-bold px-3 py-1 rounded-full border border-[#f48fb1]">Joshua, Bastien, Melik</span>
+      </div>
+    </div>
+
+    <!-- 4. AI Vision & Detection (RANGÉE DU BAS - CENTRÉE À GAUCHE DE LA PAIRE) -->
+    <div class="w-full md:w-[calc(50%-1rem)] max-w-md bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition text-center flex flex-col justify-between">
+      <div>
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#9fd08e] text-xl">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <h3 class="font-bold text-lg text-[#274e13] mb-2">AI Vision & Detection</h3>
+        <p class="text-xs text-gray-600 mb-4 leading-relaxed">YOLO image processing model, camera calibration, and waste localization.</p>
+      </div>
+      <div>
+        <span class="inline-block bg-[#fde8ef] text-[#274e13] text-xs font-bold px-3 py-1 rounded-full border border-[#f48fb1]">Marine, Adarsh, Yohann</span>
+      </div>
+    </div>
+
+    <!-- 5. Skills, Setup & HMI (RANGÉE DU BAS - CENTRÉE À DROITE DE LA PAIRE) -->
+    <div class="w-full md:w-[calc(50%-1rem)] max-w-md bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition text-center flex flex-col justify-between">
+      <div>
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#9fd08e] text-xl">
+          <i class="fa-solid fa-sliders"></i>
+        </div>
+        <h3 class="font-bold text-lg text-[#274e13] mb-2">Skills, Setup & HMI</h3>
+        <p class="text-xs text-gray-600 mb-4 leading-relaxed">System integration, web interface telemetry stream, and project coordination.</p>
+      </div>
+      <div>
+        <span class="inline-block bg-[#fde8ef] text-[#274e13] text-xs font-bold px-3 py-1 rounded-full border border-[#f48fb1]">Marine, Emilie</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- SECTION 3: AGILE METHODOLOGY SUMMARY -->
+  <section id="methodology" class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e]">
+    <h2 class="text-xl font-bold text-[#274e13] mb-4 flex items-center gap-2">
+      <i class="fa-solid fa-diagram-project text-[#4f943c]"></i> Schedule Control & Agile Methodology
+    </h2>
+    <div class="grid md:grid-cols-2 gap-6 text-sm text-gray-600 leading-relaxed">
+      <div>
+        <h4 class="font-bold text-[#274e13] mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-rotate text-[#FF69B4]"></i> Frequent Activity Reports
+        </h4>
+        <p>Bi-weekly reports structured around three key sync questions: what was completed, difficulties encountered, and upcoming tasks. Rotating Scrum Master and Product Owner roles each sprint foster complete team agility.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-[#274e13] mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-chart-pie text-[#FF69B4]"></i> Velocity & Capacity (91 Points/Week)
+        </h4>
+        <p>Task complexity is estimated using a story-point system matching work hours. For our 7-member team at 13h/week/person, maximum weekly capacity is capped at 91 points to maintain schedule discipline.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+ 
+  <!-- SHARED FOOTER -->
+  <footer class="bg-[#274e13] text-[#b8daac] py-8 border-t border-[#4f943c]">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs space-y-2">
+      <p class="font-medium">© 2026 ECOSense Project — Autonomous Eco-Robotics & Energy Telemetry Platform (GEIcar).</p>
+      <p class="text-[#FF69B4]">Developed at INSA Toulouse — GEI Department.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <title>EcoSense - Autonomous Eco-Robotics</title>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <style>
+    .bg-mint { background-color: #effceb; }
+    .bg-deep { background-color: #274e13; }
+    .bg-primary { background-color: #4f943c; }
+    .bg-medium { background-color: #73b54f; }
+    .bg-soft { background-color: #9fd08e; }
+    .bg-sage { background-color: #b8daac; }
+    .bg-hold { background-color: #FF69B4; }
+
+    .text-deep { color: #274e13; }
+    .text-primary { color: #4f943c; }
+    .text-medium { color: #73b54f; }
+    
+    .border-primary { border-color: #4f943c; }
+    .border-soft { border-color: #9fd08e; }
+    .border-sage { border-color: #b8daac; }
+  </style>
+</head>
+<body class="bg-[#effceb] text-gray-800 font-sans flex flex-col min-h-screen">
+  
+  <!-- SHARED NAVIGATION BAR -->
+  <nav class="bg-[#274e13] text-white border-b border-[#274e13] sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-3 text-xl font-bold tracking-tight text-[#effceb]">
+        <i class="fa-solid fa-leaf text-[#9fd08e]"></i> <span>EcoSense <span class="text-[#FF69B4]">by Lunch Team</span></span>
+      </a>
+      <div class="hidden md:flex space-x-8 font-medium text-sm">
+        <a href="index.html" class="hover:text-[#FF69B4] transition text-[#FF69B4] font-bold underline underline-offset-8">Home</a>
+        <a href="documentation.html" class="hover:text-[#FF69B4] transition ">Documentation</a>
+        <a href="team.html" class="hover:text-[#FF69B4] transition ">Team</a>
+        <a href="car.html" class="hover:text-[#FF69B4] transition ">The Car</a>
+        <a href="get-yours.html" class="hover:text-[#FF69B4] transition ">Get Yours</a>
+      </div>
+      <a href="https://github.com/yohannmarguier/geicar" target="_blank" class="bg-[#4f943c] hover:bg-[#FF69B4] text-white px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shadow-sm">
+        <i class="fa-brands fa-github text-sm"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- HERO SECTION -->
+  <section class="py-20 px-6 bg-gradient-to-b from-[#274e13] to-[#9fd08e] text-white text-center shadow-inner">
+    <div class="max-w-4xl mx-auto">
+      <span class="bg-[#FF69B4]/30 text-[#FF69B4] text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider border border-[#FF69B4]/50">INSA GEI Project · Platform GEIcar</span>
+      <h1 class="text-4xl md:text-6xl font-extrabold mt-6 mb-6 leading-tight">
+        Smart driving for a cleaner planet
+      </h1>
+      <p class="text-lg text-[#274e13] mb-8 max-w-3xl mx-auto leading-relaxed">
+        Transforming the GEIcar platform into an active, energy-monitored waste collector for indoor public spaces using ROS 2, AI vision, and real-time electrical telemetry.
+      </p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="car.html" class="bg-[#274e13] hover:bg-[#FF69B4] text-white font-bold px-6 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
+          <i class="fa-solid fa-car"></i> Discover The Car
+        </a>
+        <a href="documentation.html" class="bg-[#274e13] hover:bg-[#FF69B4] text-white font-bold px-6 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
+          <i class="fa-solid fa-file-code"></i> Technical Documentation
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+<!-- THE ECOSENSE PROJECT PRESENTATION SECTION -->
+<section id="ecosense-project" class="py-16 px-6 bg-[#fde8ef] border-t border-b border-[#f48fb1]/30">
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      
+      <!-- COLONNE GAUCHE : TEXTE DE PRÉSENTATION -->
+      <div class="space-y-6 text-center">
+  
+        <span class="inline-block bg-[#9fd08e]/30 text-[#274e13] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider border border-[#274e13]">
+          <i class="fa-solid fa-leaf text-[#4f943c] mr-1"></i> About The Vision
+        </span>
+
+        <!-- Titre principal -->
+        <h2 class="text-3xl md:text-5xl font-extrabold text-[#274e13] tracking-tight">
+          The EcoSense Project
+        </h2>
+
+        <!-- Texte de présentation principal -->
+        <p class="text-base md:text-lg text-gray-700 leading-relaxed font-normal">
+          The EcoSense Project develops a smart, eco-friendly navigation system that detects and collects waste while minimizing its environmental footprint. Integrating advanced sensor fusion, artificial intelligence, and real-time environmental analysis, the vehicle autonomously perceives its surroundings and reacts dynamically. Additionally, the project prioritizes energy efficiency by continuously tracking and optimizing power consumption to advance sustainable mobility.
+        </p>
+      </div>
+
+      <!-- COLONNE DROITE : IMAGE DU ROBOT GEICAR -->
+      <div class="flex justify-center items-center">
+        <div class="relative group">
+          <!-- Effet d'ombre rose en arrière-plan -->
+          <div class="absolute -inset-1 bg-gradient-to-r from-[#FF69B4] to-[#4f943c] rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-300"></div>
+          
+          <!-- Image du véhicule -->
+          <img 
+            src="Document/image_voiture_home.jpg" 
+            alt="Photo du robot GEIcar EcoSense" 
+            class="relative rounded-2xl shadow-xl border-2 border-[#274e13] hover:border-[#274e13] w-full max-w-md object-cover transition-all duration-300"
+          >
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- KEY HIGHLIGHTS -->
+  <section class="py-16 px-6 max-w-7xl mx-auto flex-grow">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-[#274e13]">Project Core Objectives</h2>
+      <p class="text-gray-600 mt-2 text-sm">Combining environmental monitoring, automated collection, and intelligent systems.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition text-center">
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl mb-4 border border-[#9fd08e]">
+          <i class="fa-solid fa-[#fa-gears] fa-gears"></i>
+        </div>
+        <h3 class="text-xl font-bold text-[#274e13] mb-3">Automation</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">Integrated robotic arm providing a complete zero-human-contact waste collection workflow.</p>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition text-center">
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl mb-4 border border-[#9fd08e]">
+          <i class="fa-solid fa-compass"></i>
+        </div>
+        <h3 class="text-xl font-bold text-[#274e13] mb-3">Precision Docking</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">Advanced target recognition, precise positioning, and docking within less than 10 cm from identified litter.</p>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition text-center">
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl mb-4 border border-[#9fd08e]">
+          <i class="fa-solid fa-leaf"></i>
+        </div>
+        <h3 class="text-xl font-bold text-[#274e13] mb-3">Sustainability</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">Real-time energy consumption tracking and environmental footprint monitoring for eco-driven autonomous operations.</p>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- SHARED FOOTER -->
+  <footer class="bg-[#274e13] text-[#b8daac] py-8 border-t border-[#4f943c]">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs space-y-2">
+      <p class="font-medium">© 2026-2027 EcoSense Project — Autonomous Eco-Robotics & Energy Telemetry Platform (GEIcar).</p>
+      <p class="text-[#FF69B4]">Developed at INSA Toulouse — GEI Department.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

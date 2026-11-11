@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <title>EcoSense - Documentation</title>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .bg-mint { background-color: #effceb; }
+    .bg-deep { background-color: #274e13; }
+    .bg-primary { background-color: #4f943c; }
+    .bg-medium { background-color: #73b54f; }
+    .bg-soft { background-color: #9fd08e; }
+    .bg-sage { background-color: #b8daac; }
+    .bg-hold { background-color: #FF69B4; }
+    .bg-holdsoft { background-color: #ff9cce; }
+
+    .text-deep { color: #274e13; }
+    .text-primary { color: #4f943c; }
+    .text-medium { color: #73b54f; }
+    
+    .border-primary { border-color: #4f943c; }
+    .border-soft { border-color: #9fd08e; }
+    .border-sage { border-color: #b8daac; }
+  </style>
+
+</head>
+<body class="bg-[#effceb] text-gray-800 font-sans flex flex-col min-h-screen">
+  
+  <!-- SHARED NAVIGATION BAR -->
+  <nav class="bg-[#274e13] text-white border-b border-[#274e13] sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-3 text-xl font-bold tracking-tight text-[#effceb]">
+        <i class="fa-solid fa-leaf text-[#9fd08e]"></i> <span>EcoSense</span>
+      </a>
+      <div class="hidden md:flex space-x-8 font-medium text-sm">
+        <a href="index.html" class="hover:text-[#FF69B4] transition ">Home</a>
+        <a href="documentation.html" class="hover:text-[#FF69B4] transition text-[#FF69B4] font-bold underline underline-offset-8">Documentation</a>
+        <a href="team.html" class="hover:text-[#FF69B4] transition ">Team</a>
+        <a href="car.html" class="hover:text-[#FF69B4] transition ">The Car</a>
+        <a href="get-yours.html" class="hover:text-[#FF69B4] transition ">Get Yours</a>
+      </div>
+      <a href="https://github.com/yohannmarguier/geicar" target="_blank" class="bg-[#4f943c] hover:bg-[#FF69B4] text-white px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shadow-sm">
+        <i class="fa-brands fa-github text-sm"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+
+  <div class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
+    <!-- TITLE -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-[#274e13]">Technical Documentation & Reports</h1>
+      <p class="text-gray-600 mt-2 text-sm">System requirements, sprint roadmaps, and presentation archives for ECOSense.</p>
+    </div>
+
+    <!-- OPERATIONAL REQUIREMENTS TABLE -->
+    <div class="bg-white rounded-2xl shadow-sm border border-[#9fd08e] overflow-hidden">
+      <div class="bg-[#274e13] px-6 py-4 border-b border-[#4f943c] flex justify-between items-center">
+        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-list-check text-[#9fd08e]"></i> Operational Requirements
+        </h2>
+        <span class="text-xs bg-[#4f943c] text-white px-3 py-1 rounded-full">v1.0 Specifications</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-[#effceb] text-[#274e13] font-bold border-b border-[#9fd08e]">
+            <tr>
+              <th class="p-4">Code</th>
+              <th class="p-4">Requirement</th>
+              <th class="p-4">Tolerance</th>
+              <th class="p-4">Associated Feature</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 font-mono text-xs text-gray-700">
+            <tr class="hover:bg-[#effceb]/50">
+              <td class="p-4 font-bold text-[#4f943c]">1.B.1</td>
+              <td class="p-4 font-sans text-gray-800">Emergency Stop: Car halts if an obstacle is within 10 cm in front.</td>
+              <td class="p-4 text-[#274e13] font-bold">Stop distance &le; 10 cm</td>
+              <td class="p-4">F3, F4 (Safety & Nav)</td>
+            </tr>
+            <tr class="hover:bg-[#effceb]/50">
+              <td class="p-4 font-bold text-[#4f943c]">2.A.1</td>
+              <td class="p-4 font-sans text-gray-800">Instantaneous Power Measurement: Measure and display current/voltage per module.</td>
+              <td class="p-4 text-[#274e13] font-bold">5% error, 1 Hz refresh</td>
+              <td class="p-4">F1 (Energy)</td>
+            </tr>
+            <tr class="hover:bg-[#effceb]/50">
+              <td class="p-4 font-bold text-[#4f943c]">2.A.2</td>
+              <td class="p-4 font-sans text-gray-800">Cumulative Energy Tracking: Calculate total energy consumed since startup (Wh).</td>
+              <td class="p-4 text-[#274e13] font-bold">5% error (Wh)</td>
+              <td class="p-4">F2 (Energy)</td>
+            </tr>
+            <tr class="hover:bg-[#effceb]/50">
+              <td class="p-4 font-bold text-[#4f943c]">3.A.1</td>
+              <td class="p-4 font-sans text-gray-800">SLAM Map Localization: Estimate car position on generated map.</td>
+              <td class="p-4 text-[#274e13] font-bold">Max error = 10 cm</td>
+              <td class="p-4">F3 (Navigation)</td>
+            </tr>
+            <tr class="hover:bg-[#effceb]/50">
+              <td class="p-4 font-bold text-[#4f943c]">4.A.1</td>
+              <td class="p-4 font-sans text-gray-800">Waste AI Recognition: Detect cans/bottles on ground up to 1.5 m via camera.</td>
+              <td class="p-4 text-[#274e13] font-bold">&gt; 80% detection rate</td>
+              <td class="p-4">F6, F9 (AI Vision)</td>
+            </tr>
+            <tr class="hover:bg-[#effceb]/50">
+              <td class="p-4 font-bold text-[#4f943c]">6.A.1</td>
+              <td class="p-4 font-sans text-gray-800">Robotic Arm Pick & Place: Retrieve identified waste and place in container.</td>
+              <td class="p-4 text-[#274e13] font-bold">&gt; 70% success / 10 trials</td>
+              <td class="p-4">F5 (Robotic Arm)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRESENTATIONS & SPRINTS ROADMAP -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Sprints Roadmap -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e]">
+        <h2 class="text-xl font-bold text-[#274e13] mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-[#fa-timeline] fa-route text-[#4f943c]"></i> Sprints Release Vision
+        </h2>
+        <div class="space-y-4">
+          <div class="p-4 rounded-xl border-l-4 border-[#4f943c] bg-[#ff9cce]/30">
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-[#274e13]">SP0 — Setup & Architecture</span>
+              <span class="text-xs bg-[#4f943c] text-white px-2 py-0.5 rounded font-mono">07/11</span>
+            </div>
+            <p class="text-xs text-gray-600">Git repository setup, Jira backlog creation, and legacy code audit.</p>
+          </div>
+          <div class="p-4 rounded-xl border-l-4 border-[#73b54f] bg-white border">
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-[#274e13]">SP1 — Teleoperation & Emergency Stop</span>
+              <span class="text-xs bg-[#73b54f] text-white px-2 py-0.5 rounded font-mono">18/11</span>
+            </div>
+            <p class="text-xs text-gray-600">Remote control, hardware safety stop validation, and energy monitoring prototype.</p>
+          </div>
+          <div class="p-4 rounded-xl border-l-4 border-[#9fd08e] bg-white border">
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-[#274e13]">SP2 — Autonomous Patrol & AI Vision</span>
+              <span class="text-xs bg-[#9fd08e] text-gray-800 px-2 py-0.5 rounded font-mono">09/12</span>
+            </div>
+            <p class="text-xs text-gray-600">NAV2 integration for autonomous mapping and YOLO model deployment on Jetson.</p>
+          </div>
+          <div class="p-4 rounded-xl border-l-4 border-gray-300 bg-white border">
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-[#274e13]">SP3 to SP5 — Arm Pick & Final Patrol</span>
+              <span class="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded font-mono">Jan 2026</span>
+            </div>
+            <p class="text-xs text-gray-600">Arm collection, HMI live streaming, and final defense demonstration scenario.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Presentations & Downloads -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-[#274e13] mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-file-pdf text-[#4f943c]"></i> Presentations & Resources
+          </h2>
+          <div class="space-y-4">
+            <div class="p-4 rounded-xl border border-[#b8daac] flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-sm text-[#274e13]">Sprint 1 Review Presentation</h4>
+                <p class="text-xs text-gray-500">PDF Document · Task allocation & telemetry architecture</p>
+              </div>
+              <span class="text-xs font-bold text-[#4f943c] bg-[#effceb] px-3 py-1 rounded-lg border border-[#9fd08e]">Available</span>
+            </div>
+            <div class="p-4 rounded-xl border border-[#b8daac] flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-sm text-[#274e13]">ECOSense Project Plan Document</h4>
+                <p class="text-xs text-gray-500">Full specifications, risk matrix & requirements</p>
+              </div>
+              <span class="text-xs font-bold text-[#4f943c] bg-[#effceb] px-3 py-1 rounded-lg border border-[#9fd08e]">Available</span>
+            </div>
+            <div class="p-4 rounded-xl border border-[#b8daac] flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-sm text-[#274e13]">ROS 2 System Graph Architecture</h4>
+                <p class="text-xs text-gray-500">Node dependencies & message topology</p>
+              </div>
+              <span class="text-xs font-bold text-[#4f943c] bg-[#effceb] px-3 py-1 rounded-lg border border-[#9fd08e]">Diagram</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-gray-100 text-center">
+          <p class="text-xs text-gray-500">All documentation is synchronized with the main project drive and GitHub repository.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- SHARED FOOTER -->
+  <footer class="bg-[#274e13] text-[#b8daac] py-8 border-t border-[#4f943c]">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs space-y-2">
+      <p class="font-medium">© 2026 ECOSense Project — Autonomous Eco-Robotics & Energy Telemetry Platform (GEIcar).</p>
+      <p class="text-[#FF69B4]">Developed at INSA Toulouse — GEI Department.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

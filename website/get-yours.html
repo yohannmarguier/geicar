@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <title>EcoSense - Get Yours</title>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .bg-mint { background-color: #effceb; }
+    .bg-deep { background-color: #274e13; }
+    .bg-primary { background-color: #4f943c; }
+    .bg-medium { background-color: #73b54f; }
+    .bg-soft { background-color: #9fd08e; }
+    .bg-sage { background-color: #b8daac; }
+    .bg-hold { background-color: #FF69B4; }
+    
+    .text-deep { color: #274e13; }
+    .text-primary { color: #4f943c; }
+    .text-medium { color: #73b54f; }
+    
+    .border-primary { border-color: #4f943c; }
+    .border-soft { border-color: #9fd08e; }
+    .border-sage { border-color: #b8daac; }
+  </style>
+
+</head>
+<body class="bg-[#effceb] text-gray-800 font-sans flex flex-col min-h-screen">
+  
+  <!-- SHARED NAVIGATION BAR -->
+  <nav class="bg-[#274e13] text-white border-b border-[#274e13] sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-3 text-xl font-bold tracking-tight text-[#effceb]">
+        <i class="fa-solid fa-leaf text-[#9fd08e]"></i> <span>EcoSense</span>
+      </a>
+      <div class="hidden md:flex space-x-8 font-medium text-sm">
+        <a href="index.html" class="hover:text-[#FF69B4] transition ">Home</a>
+        <a href="documentation.html" class="hover:text-[#FF69B4] transition ">Documentation</a>
+        <a href="team.html" class="hover:text-[#FF69B4] transition ">Team</a>
+        <a href="car.html" class="hover:text-[#FF69B4] transition ">The Car</a>
+        <a href="get-yours.html" class="hover:text-[#FF69B4] transition text-[#FF69B4] font-bold underline underline-offset-8">Get Yours</a>
+      </div>
+      <a href="https://github.com/yohannmarguier/geicar" target="_blank" class="bg-[#4f943c] hover:bg-[#FF69B4] text-white px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shadow-sm">
+        <i class="fa-brands fa-github text-sm"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+
+  <div class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
+    <!-- TITLE -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-[#274e13]">Build & Deploy ECOSense</h1>
+      <p class="text-gray-600 mt-2 text-sm">Open-hardware specifications, ROS 2 packages, and collaboration inquiries.</p>
+    </div>
+
+    <!-- OPEN SOURCE PACKAGE GRID -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e]">
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl mb-4 border border-[#9fd08e]">
+          <i class="fa-solid fa-code-branch"></i>
+        </div>
+        <h3 class="text-xl font-bold text-[#274e13] mb-3">1. ROS 2 Codebase</h3>
+        <p class="text-sm text-gray-600 mb-6 leading-relaxed">Clone our ROS 2 workspaces including power sensing nodes, telemetry HMI bridges, and NAV2 configurations.</p>
+        <a href="https://github.com/yohannmarguier/geicar" target="_blank" class="inline-flex items-center gap-2 bg-[#274e13] hover:bg-[#4f943c] text-white px-4 py-2 rounded-lg text-xs font-semibold transition">
+          <i class="fa-brands fa-github"></i> Repository Access
+        </a>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e]">
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl mb-4 border border-[#9fd08e]">
+          <i class="fa-solid fa-cubes"></i>
+        </div>
+        <h3 class="text-xl font-bold text-[#274e13] mb-3">2. Hardware & CAD Files</h3>
+        <p class="text-sm text-gray-600 mb-6 leading-relaxed">Download 3D printable CAD models (.STL) for the waste container, sensor mounts, and arm attachments.</p>
+        <span class="inline-block bg-[#effceb] text-[#274e13] text-xs font-bold px-3 py-2 rounded-lg border border-[#9fd08e]">Open Hardware (BOM included)</span>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e]">
+        <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl mb-4 border border-[#9fd08e]">
+          <i class="fa-solid fa-box-archive"></i>
+        </div>
+        <h3 class="text-xl font-bold text-[#274e13] mb-3">3. Docker Dev Environment</h3>
+        <p class="text-sm text-gray-600 mb-6 leading-relaxed">Get started instantly using pre-configured Docker development containers with ROS 2 Humble pre-installed.</p>
+        <span class="inline-block bg-[#effceb] text-[#274e13] text-xs font-bold px-3 py-2 rounded-lg border border-[#9fd08e]">Docker Compose Ready</span>
+      </div>
+    </div>
+
+    <!-- INQUIRY FORM -->
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-3xl shadow-sm border border-[#9fd08e]">
+      <h2 class="text-2xl font-bold text-[#274e13] mb-2 text-center">Get In Touch & Collaborate</h2>
+      <p class="text-xs text-gray-600 text-center mb-6">Interested in deploying ECOSense in your research facility, university, or public hall?</p>
+      
+      <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you for your interest! The ECOSense team will respond shortly.');">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#274e13] mb-1">Your Name</label>
+            <input type="text" placeholder="John Doe" class="w-full bg-[#effceb]/50 border border-[#b8daac] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#4f943c]" required>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#274e13] mb-1">Email Address</label>
+            <input type="email" placeholder="john@example.com" class="w-full bg-[#effceb]/50 border border-[#b8daac] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#4f943c]" required>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-[#274e13] mb-1">Organization / Institution</label>
+          <input type="text" placeholder="University, Lab, or Company Name" class="w-full bg-[#effceb]/50 border border-[#b8daac] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#4f943c]">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-[#274e13] mb-1">Project Details / Message</label>
+          <textarea rows="4" placeholder="Describe your interest in ECOSense..." class="w-full bg-[#effceb]/50 border border-[#b8daac] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#4f943c]" required></textarea>
+        </div>
+        <button type="submit" class="w-full bg-[#4f943c] hover:bg-[#73b54f] text-white font-bold py-3 rounded-xl transition shadow-md">
+          Send Inquiry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  
+  <!-- SHARED FOOTER -->
+  <footer class="bg-[#274e13] text-[#b8daac] py-8 border-t border-[#4f943c]">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs space-y-2">
+      <p class="font-medium">© 2026 ECOSense Project — Autonomous Eco-Robotics & Energy Telemetry Platform (GEIcar).</p>
+      <p class="text-[#FF69B4]">Developed at INSA Toulouse — GEI Department.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

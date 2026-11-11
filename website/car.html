@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <title>EcoSense - The Car</title>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .bg-mint { background-color: #effceb; }
+    .bg-deep { background-color: #274e13; }
+    .bg-primary { background-color: #4f943c; }
+    .bg-medium { background-color: #73b54f; }
+    .bg-soft { background-color: #9fd08e; }
+    .bg-sage { background-color: #b8daac; }
+    .bg-hold { background-color: #FF69B4; }
+    
+    .text-deep { color: #274e13; }
+    .text-primary { color: #4f943c; }
+    .text-medium { color: #73b54f; }
+    
+    .border-primary { border-color: #4f943c; }
+    .border-soft { border-color: #9fd08e; }
+    .border-sage { border-color: #b8daac; }
+  </style>
+
+</head>
+<body class="bg-[#effceb] text-gray-800 font-sans flex flex-col min-h-screen">
+  
+  <!-- SHARED NAVIGATION BAR -->
+  <nav class="bg-[#274e13] text-white border-b border-[#274e13] sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-3 text-xl font-bold tracking-tight text-[#effceb]">
+        <i class="fa-solid fa-leaf text-[#9fd08e]"></i> <span>EcoSense</span>
+      </a>
+      <div class="hidden md:flex space-x-8 font-medium text-sm">
+        <a href="index.html" class="hover:text-[#FF69B4] transition ">Home</a>
+        <a href="documentation.html" class="hover:text-[#FF69B4] transition ">Documentation</a>
+        <a href="team.html" class="hover:text-[#FF69B4] transition ">Team</a>
+        <a href="car.html" class="hover:text-[#FF69B4] transition text-[#FF69B4] font-bold underline underline-offset-8">The Car</a>
+        <a href="get-yours.html" class="hover:text-[#FF69B4] transition ">Get Yours</a>
+      </div>
+      <a href="https://github.com/yohannmarguier/geicar" target="_blank" class="bg-[#4f943c] hover:bg-[#FF69B4] text-white px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shadow-sm">
+        <i class="fa-brands fa-github text-sm"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+
+  <div class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
+    <!-- TITLE -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-[#274e13]">The Car (GEIcar Platform)</h1>
+      <p class="text-gray-600 mt-2 text-sm">Hardware specs, onboard sensor stack, and interactive telemetry supervision HMI.</p>
+    </div>
+
+    <!-- HARDWARE SPECS GRID -->
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e]">
+        <div class="text-[#4f943c] text-2xl mb-2"><i class="fa-solid fa-microchip"></i></div>
+        <h3 class="font-bold text-[#274e13]">Compute Board</h3>
+        <p class="text-xs text-gray-600 mt-1">Nvidia Jetson Orin Nano for edge AI inference & ROS 2 node execution.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e]">
+        <div class="text-[#4f943c] text-2xl mb-2"><i class="fa-solid fa-radar"></i></div>
+        <h3 class="font-bold text-[#274e13]">Sensors Stack</h3>
+        <p class="text-xs text-gray-600 mt-1">2D LIDAR, ultrasonic array, IMU sensor, and HD RGB camera feed.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e]">
+        <div class="text-[#4f943c] text-2xl mb-2"><i class="fa-solid fa-hand"></i></div>
+        <h3 class="font-bold text-[#274e13]">Manipulator Arm</h3>
+        <p class="text-xs text-gray-600 mt-1">Multi-DOF robotic arm with customized claw end-effector & collection bin.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e]">
+        <div class="text-[#4f943c] text-2xl mb-2"><i class="fa-solid fa-car-battery"></i></div>
+        <h3 class="font-bold text-[#274e13]">Power Module</h3>
+        <p class="text-xs text-gray-600 mt-1">Inline voltage & current sensors sending live Wh telemetry to HMI.</p>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE HMI DEMO -->
+    <div class="bg-[#274e13] rounded-3xl p-8 text-white shadow-xl border border-[#4f943c]">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-[#4f943c] pb-4 gap-4">
+        <div>
+          <h2 class="text-xl font-bold flex items-center gap-2">
+            <i class="fa-solid fa-desktop text-[#9fd08e]"></i> Live HMI Supervision Dashboard
+          </h2>
+          <p class="text-xs text-[#b8daac]">Simulated real-time vehicle telemetry stream over WebSockets / ROSbridge</p>
+        </div>
+        <span class="bg-[#4f943c] text-white text-xs px-3 py-1 rounded-full font-mono flex items-center gap-2">
+          <span class="w-2 h-2 bg-[#9fd08e] rounded-full animate-pulse"></span> ROS2 Connected: /ecosense/telemetry
+        </span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- SIMULATED CAMERA STREAM -->
+        <div class="md:col-span-2 bg-black rounded-2xl p-4 border border-[#4f943c] relative flex flex-col justify-between h-72">
+          <div class="flex justify-between items-center text-xs text-[#9fd08e] font-mono">
+            <span>TOPIC: /camera/image_raw</span>
+            <span>FORMAT: RGB8 (640x480 @ 30fps)</span>
+          </div>
+          
+          <!-- Bounding box simulation -->
+          <div class="absolute top-1/4 left-1/3 border-2 border-[#9fd08e] bg-[#9fd08e]/10 p-2 rounded text-xs font-mono text-[#effceb]">
+            <i class="fa-solid fa-[#fa-can] fa-box text-[#9fd08e] mr-1"></i> Plastic Bottle (94%)<br>
+            <span class="text-[10px] text-[#b8daac]">Dist: 0.82m · Angle: -5.4°</span>
+          </div>
+
+          <div class="text-center text-gray-500 text-xs font-mono">
+            [ AI Inference Stream Active — Model: YOLOv8-Nano ]
+          </div>
+
+          <div class="flex justify-between items-center text-xs text-gray-400 font-mono">
+            <span>Status: PATROL_SEARCHING</span>
+            <span>Speed: 0.25 m/s</span>
+          </div>
+        </div>
+
+        <!-- LIVE POWER & BATTERY TELEMETRY -->
+        <div class="bg-[#1f3e0f] rounded-2xl p-6 border border-[#4f943c] space-y-6">
+          <h3 class="text-sm font-bold text-[#effceb] uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-plug-circle-bolt text-[#9fd08e]"></i> Energy Metrics
+          </h3>
+
+          <!-- Battery gauge -->
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-[#b8daac]">Battery Level</span>
+              <span class="font-bold text-[#9fd08e]">85%</span>
+            </div>
+            <div class="w-full bg-black/40 h-3 rounded-full overflow-hidden border border-[#4f943c]">
+              <div class="bg-[#73b54f] h-full w-[85%]"></div>
+            </div>
+            <p class="text-[10px] text-gray-400 mt-1">Alert: 20% · Auto-Return: 10%</p>
+          </div>
+
+          <div class="space-y-3 font-mono text-xs border-t border-[#4f943c] pt-4">
+            <div class="flex justify-between">
+              <span class="text-[#b8daac]">Voltage:</span>
+              <span class="text-white font-bold">12.4 V</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#b8daac]">Instantaneous Power:</span>
+              <span class="text-[#9fd08e] font-bold">14.8 W</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#b8daac]">Cumulative Energy:</span>
+              <span class="text-[#9fd08e] font-bold">4.12 Wh</span>
+            </div>
+            <div class="flex justify-between border-t border-[#4f943c]/50 pt-2">
+              <span class="text-[#b8daac]">E-Stop Status:</span>
+              <span class="text-[#9fd08e] font-bold">CLEAR (&gt;10cm)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- SHARED FOOTER -->
+  <footer class="bg-[#274e13] text-[#b8daac] py-8 border-t border-[#4f943c]">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs space-y-2">
+      <p class="font-medium">© 2026 ECOSense Project — Autonomous Eco-Robotics & Energy Telemetry Platform (GEIcar).</p>
+      <p class="text-[#FF69B4]">Developed at INSA Toulouse — GEI Department.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
