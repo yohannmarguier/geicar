@@ -367,6 +367,16 @@ int main(void)
             
             CAN_Send(data, CAN_ID_MOTORS_DATA);
 
+            /* Courants des moteurs : valeurs brutes de l'ADC (0 a 4095) */
+            data[0] = (ADCBUF[2] >> 8) & 0xFF;  // moteur arriere gauche (octet de poids fort)
+            data[1] = ADCBUF[2] & 0xFF;         //                        (octet de poids faible)
+            data[2] = (ADCBUF[3] >> 8) & 0xFF;  // moteur arriere droit
+            data[3] = ADCBUF[3] & 0xFF;
+            data[4] = (ADCBUF[4] >> 8) & 0xFF;  // moteur de direction
+            data[5] = ADCBUF[4] & 0xFF;
+
+            CAN_Send(data, CAN_ID_MOTORS_CURRENTS);
+
          }
          if (CAN_SEND_BATT){
         	//Battery Level

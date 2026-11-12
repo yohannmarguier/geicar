@@ -10,6 +10,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "std_msgs/msg/float32_multi_array.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "sensor_msgs/msg/magnetic_field.hpp"
 #include "interfaces/msg/motors_feedback.hpp"
@@ -18,6 +19,7 @@
 #include "interfaces/msg/ultrasonic.hpp"
 #include "interfaces/msg/gnss.hpp"
 #include "interfaces/msg/system_check.hpp"
+
 
 #include "../include/can/can.h"
 
@@ -37,6 +39,7 @@ public:
         publisher_generalData_ = this->create_publisher<interfaces::msg::GeneralData>("general_data", 10);
         publisher_steeringCalibration_ = this->create_publisher<interfaces::msg::SteeringCalibration>("steering_calibration", 10);
         publisher_systemCheck_ = this->create_publisher<interfaces::msg::SystemCheck>("system_check", 10);
+        publisher_power_ = this->create_publisher<std_msgs::msg::Float32MultiArray>("power/motors", 10);
 
 
         if (initCommunication()==0){
@@ -335,6 +338,26 @@ private:
                 generalDataMsg.humidity= humidity;
 
                 publisher_generalData_->publish(generalDataMsg);
+            } else if (frame.can_id == ID_MOTORS_CURRENTS){
+
+                // 1) Reconstruire les 3 valeurs brutes a partir des octets recus
+                float raw[3];
+                raw[0] = (frame.data[0] << 8) + frame.data[1];   // moteur arriere gauche
+                raw[1] = (frame.data[2] << 8) + frame.data[3];   // moteur arriere droit
+                raw[2] = (frame.data[4] << 8) + frame.data[5];   // moteur de direction
+
+                // 2) A REMPLACER : volts par ampere du capteur de courant du pont en H
+                const float VOLTS_PER_AMP = 1.0f;
+
+                // 3) Conversion : valeur brute -> volts -> amperes -> watts
+                std_msgs::msg::Float32MultiArray power_msg;
+                for (int k = 0; k < 3; k++){
+                    float volts = raw[k] * 3.3f / 4095.0f;
+                    float amps  = volts / VOLTS_PER_AMP;
+                    power_msg.data.push_back(batteryLevel * amps);   // P = U x I
+                }
+
+                publisher_power_->publish(power_msg);
             }
 
         }
@@ -376,7 +399,7 @@ private:
     int ang_vel_z;
 
     //General data
-    float batteryLevel; //[V]
+    float batteryLevel  = 0.0f; //[V]
     float temperature; //[°C]
     int pressure; //[hPa]
     int humidity; //%
@@ -385,6 +408,7 @@ private:
     //Publishers
     rclcpp::Publisher<interfaces::msg::Ultrasonic>::SharedPtr publisher_us_;
     rclcpp::Publisher<interfaces::msg::Gnss>::SharedPtr publisher_gnss_;
+    rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr publisher_power_;
 
     rclcpp::Publisher<interfaces::msg::MotorsFeedback>::SharedPtr publisher_motorsFeedback_;
     rclcpp::Publisher<interfaces::msg::GeneralData>::SharedPtr publisher_generalData_;
