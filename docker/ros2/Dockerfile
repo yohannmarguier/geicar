@@ -6,6 +6,7 @@ RUN apt-get update \
         libavcodec-dev \
         libswscale-dev \
         pkg-config \
+        socat \
         v4l-utils \
     && rm -rf /var/lib/apt/lists/*
 

@@ -62,8 +62,55 @@ build. The `ros2 pkg list` checks confirm package discovery, not sensor or car
 operation. If `rosdep` reports an unresolved key during image build, inspect
 that package and its component guide before adding or changing dependencies.
 
-This macOS container does not expose the car's CAN bus, camera, lidar, joystick,
-or arm. Docker Desktop's networking and device access differ from Linux on the
-car. Validate hardware and ROS communication on the target Pi/Jetson after local
-builds. The pre-existing Jetson `ros-humble` container described in the board
-guide is a separate deployment environment.
+## SO-101 arm connected to the Mac
+
+Docker Desktop for Mac [does not directly pass USB devices](https://docs.docker.com/desktop/troubleshoot-and-support/faqs/general/#can-i-pass-through-a-usb-device-to-a-container)
+to a Linux container. The optional bridge below opens the serial port on the Mac and gives
+the Jetson container a Linux pseudo-terminal at `/tmp/so101`. This is only a
+byte transport: there is no SO-101 ROS driver or arm-control node in this repo.
+Use the container path when configuring a future driver; do not use the macOS
+`/dev/cu.*` path inside the container.
+
+On the Mac, install the host bridge's one Python dependency and start it in a
+terminal from the repository root:
+
+```sh
+python3 -m venv docker/ros2/.venv
+docker/ros2/.venv/bin/python -m pip install pyserial
+docker/ros2/.venv/bin/python docker/ros2/so101_serial_host.py \
+  --device /dev/cu.usbmodem5AA90177351
+```
+
+Leave that terminal running. The host bridge listens only on Mac loopback port
+54321 and opens the serial port at 1,000,000 baud when the container connects.
+In a second Mac terminal, rebuild the image once to add `socat`, then open the
+Jetson shell with the bridge:
+
+```sh
+docker compose build raspberry
+docker compose run --rm jetson bash /project/docker/ros2/jetson_so101_shell.sh
+```
+
+Inside that shell, verify that the device exists without sending motor commands:
+
+```sh
+ls -l /tmp/so101
+```
+
+Press Ctrl-D to leave the shell and Ctrl-C in the Mac bridge terminal to stop.
+Only one program should open `/tmp/so101` at a time. The Mac bridge holds the
+physical port while connected; close any Mac program using the arm first. If
+the device name changes after reconnecting USB, update `--device`. If your
+arm's configured baud rate differs, pass the same `--baudrate` to the Mac
+script. The Linux pseudo-terminal's baud setting does not change the physical
+port speed on the Mac. The bridge forwards serial bytes as soon as they arrive
+and disables TCP small-packet buffering, but it still adds a Mac-to-Docker hop.
+Actual arm round-trip latency has not been measured. Do motor setup,
+calibration, and motion tests only with
+the correct arm variant, power supply, and joint limits confirmed.
+
+The macOS container still does not expose the car's CAN bus, camera, lidar, or
+joystick. Docker Desktop's networking and device access differ from Linux on
+the car. Validate hardware and ROS communication on the target Pi/Jetson after
+local builds. The pre-existing Jetson `ros-humble` container described in the
+board guide is a separate deployment environment.

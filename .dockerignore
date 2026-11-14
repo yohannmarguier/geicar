@@ -5,3 +5,4 @@
 .DS_Store
 ressources/
 jetsonNano/playground/
+docker/ros2/.venv/
