@@ -1,0 +1,36 @@
+services:
+  raspberry:
+    build:
+      context: .
+      dockerfile: docker/ros2/Dockerfile
+    image: geicar-ros2:humble
+    working_dir: /project/raspberryPI3/ros2_ws
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/project
+      - raspberry-build:/project/raspberryPI3/ros2_ws/build
+      - raspberry-install:/project/raspberryPI3/ros2_ws/install
+      - raspberry-log:/project/raspberryPI3/ros2_ws/log
+
+  jetson:
+    build:
+      context: .
+      dockerfile: docker/ros2/Dockerfile
+    image: geicar-ros2:humble
+    working_dir: /project/jetsonNano/ros2_ws
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/project
+      - jetson-build:/project/jetsonNano/ros2_ws/build
+      - jetson-install:/project/jetsonNano/ros2_ws/install
+      - jetson-log:/project/jetsonNano/ros2_ws/log
+
+volumes:
+  raspberry-build:
+  raspberry-install:
+  raspberry-log:
+  jetson-build:
+  jetson-install:
+  jetson-log:

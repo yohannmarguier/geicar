@@ -40,6 +40,10 @@ You have to install ROS2 Humble on your PC: https://docs.ros.org/en/humble/Insta
    - For linux: https://docs.ros.org/en/humble/How-To-Guides/Run-2-nodes-in-single-or-separate-docker-containers.html 
    - For windows : https://docs.docker.com/desktop/install/windows-install/ 
 
+For macOS development with this repository's two ROS workspaces, use the
+[local ROS 2 Docker guide](../docker/ros2/README.md). It gives each workspace
+separate build output and does not require ROS to be installed on macOS.
+
 You will then have to install a ros-humble container:
 
 ```sh

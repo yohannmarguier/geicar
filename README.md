@@ -42,5 +42,8 @@ The projects are (or were) surpervised by:
     * jetsonNano: Directory containing info on IA, Camera and Lidar
     * simulation: if you want to setup a carla simulation environment
 
+For ROS 2 Humble development on macOS with Docker, see the
+[local Docker guide](docker/ros2/README.md).
+
 __warning__
 You normally do not need to change firmware running in F103 and F476 boards. You main work is on the raspberry and jetson side.
