@@ -67,8 +67,8 @@ that package and its component guide before adding or changing dependencies.
 Docker Desktop for Mac [does not directly pass USB devices](https://docs.docker.com/desktop/troubleshoot-and-support/faqs/general/#can-i-pass-through-a-usb-device-to-a-container)
 to a Linux container. The optional bridge below opens the serial port on the Mac and gives
 the Jetson container a Linux pseudo-terminal at `/tmp/so101`. This is only a
-byte transport: there is no SO-101 ROS driver or arm-control node in this repo.
-Use the container path when configuring a future driver; do not use the macOS
+byte transport; the optional [SO-101 dance package](../../jetsonNano/ros2_ws/src/so-arm101/README.md)
+uses that path for a bounded motion demo. Use the container path, not the macOS
 `/dev/cu.*` path inside the container.
 
 On the Mac, install the host bridge's one Python dependency and start it in a
