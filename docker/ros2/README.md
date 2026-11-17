@@ -114,3 +114,48 @@ joystick. Docker Desktop's networking and device access differ from Linux on
 the car. Validate hardware and ROS communication on the target Pi/Jetson after
 local builds. The pre-existing Jetson `ros-humble` container described in the
 board guide is a separate deployment environment.
+
+## Jetson ARM64 release from a Mac
+
+Issue #2 adds an offline build artifact for the **Jetson workspace only**. On an
+Apple Silicon Mac with Docker Desktop running, network access for image and
+package downloads, and sufficient disk space, run from the repository root:
+
+```sh
+docker/ros2/jetson-release/build.sh /absolute/path/jetson-release.tar
+```
+
+The output path must not already exist. The build uses the current Jetson
+`src/` files, including uncommitted and new files (except Docker's
+`.dockerignore` exclusions). It resolves their declared dependencies with
+`rosdep`, installs the existing camera build dependencies and the SO-101 Python
+SDK, then runs a fresh non-symlink colcon build. The Docker image and build
+container are ARM64; C and C++ builds request the generic `armv8-a` CPU
+baseline. Packages that override compiler flags or use prebuilt binaries need
+separate inspection. The Raspberry Pi workspace and the Jetson are not touched.
+The image tag and package repositories are mutable: this is a repeatable process,
+not a bit-for-bit reproducible or pinned build.
+
+The install prefix is **`/root/ros2_ws/install`**, matching `~/ros2_ws/install`
+only if the Jetson container runs as root. The tar contains that absolute-path
+layout, the discovered package names, and `release-manifest.txt` with the
+build's OS and Python package versions. Do not relocate it. The script refuses
+to overwrite an existing output and only publishes the tar after a successful
+build and a source-free, network-disabled container check. That check extracts
+it at the intended path, discovers every built package and checks dangling links
+and loads an installed generated message and arm motion module alongside its
+Python dependencies. It does not exercise hardware or every node.
+
+Before any later deployment, inspect the actual `ros-humble` container without
+changing it: confirm its user/home and install path, `uname -m`, Ubuntu and ROS
+Humble versions, and installed library and Python versions against the manifest.
+The guide's `arm64v8/ros:humble-ros-base` image is an assumption, not proof of
+the running image or dependency compatibility. In particular, ensure the same
+runtime dependencies (including `ftservo-python-sdk==2.0.1` and
+`python3-serial`) exist in the target container. Verify the Jetson CPU supports
+the baseline and check package-specific compiler flags and binary dependencies.
+If the actual path or runtime differs, rebuild for that environment; extraction
+or deployment is outside this build procedure. After installation, source
+`/opt/ros/humble/setup.bash` and `/root/ros2_ws/install/local_setup.bash`, check
+`ros2 pkg list`, and follow the component guides for hardware validation. A
+successful local check does not prove camera, lidar, vehicle, or arm operation.
