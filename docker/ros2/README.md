@@ -159,3 +159,120 @@ or deployment is outside this build procedure. After installation, source
 `/opt/ros/humble/setup.bash` and `/root/ros2_ws/install/local_setup.bash`, check
 `ros2 pkg list`, and follow the component guides for hardware validation. A
 successful local check does not prove camera, lidar, vehicle, or arm operation.
+
+## Guarded Jetson release sessions
+
+Issue #3 provides `jetson-release/session.py`, a cooperative Linux lock and
+clean session launcher. It does not deploy files or start any nodes. The
+following setup is for the existing Jetson `ros-humble` container, **after**
+confirming its user, mounts, dependencies and the fixed installation path in
+the preceding section. The running container and actual Jetson have not been
+verified by these checks.
+
+The release must appear at `/root/ros2_ws/install` inside the container. The
+existing workspace must remain untouched on the host: mount a **separate,
+host-backed release parent directory** at `/root/ros2_ws` in the container,
+with the release under its `install/` child. Do not bind-mount the `install`
+directory itself if a future deployment will replace that directory: a bind
+mount can keep referring to the old directory after a rename. Changing mounts
+requires recreating the container; inspect its existing settings and preserve
+its devices, network, other mounts and configuration first. Do not recreate it
+as part of starting a session. The release must already be installed and its
+runtime compatibility verified; the future deployment procedure is not part of
+this issue.
+
+Copy `session.py` into a stable location in that container, for example
+`/usr/local/bin/geicar-session.py`, and create a persistent, writable guard
+directory outside the release, `/root/geicar-release-guard`. This directory
+must be visible to every session and replacement operation, on a local Linux
+filesystem that supports `flock`. The lock file is
+`/root/geicar-release-guard/session.lock`: never remove, rename or replace it,
+or replace its containing mount, while operations may be running. Recreating
+or independently copying the lock file creates a different lock and defeats
+the guard. The adjacent `session.lock.sessions` directory contains persistent
+session records; preserve it as well. All users must have permission to open
+the same file and access that directory. Keep the script and guard directory
+outside the replaced release.
+
+From a Jetson host shell, start a deliberate interactive test session:
+
+```sh
+docker exec -it ros-humble python3 /usr/local/bin/geicar-session.py session
+```
+
+The launcher starts with a clean environment, sources ROS Humble and the
+release, and starts Bash without shell startup files. It preserves `HOME`,
+`USER`, `LOGNAME`, `TERM`, `ROS_DOMAIN_ID`, `ROS_LOCALHOST_ONLY`, and
+`RMW_IMPLEMENTATION` when set; configure the ROS domain in the environment
+passed to `docker exec` if needed (for example `docker exec -e ROS_DOMAIN_ID=1
+...`). It does not source the old workspace or `.bashrc`. Inside the session,
+verify package origins before deliberately launching anything:
+
+```sh
+ros2 pkg prefix usb_cam
+ros2 pkg prefix so_arm101
+ros2 pkg list
+# If desired, deliberately launch the branch's existing camera/lidar stack:
+ros2 launch geicar_start_jetson geicar.jetson.launch.py
+```
+
+Replace the example packages with names in `packages.txt` and check that their
+prefixes are under `/root/ros2_ws/install`. Also check that a known package
+exclusive to the old workspace is absent. This branch's launch does **not**
+launch the unmerged emergency-stop node. Verify all actual node and hardware
+behavior separately. Stop the launched application and its children before
+exiting the session with Ctrl-D. Sourcing a different environment affects only
+that shell and future children; it does not change already running processes.
+
+A future deployment must run its **entire replacement operation** under the
+same exclusive guard inside the same container and PID namespace, for example:
+
+```sh
+docker exec ros-humble python3 /usr/local/bin/geicar-session.py status
+docker exec ros-humble python3 /usr/local/bin/geicar-session.py replace -- /path/to/replacement-command
+```
+
+`status` returns 0 for idle, 1 for a held lock, and 2 if it cannot establish
+status or finds a session record awaiting verification. `replace` holds an exclusive lock while its command runs and refuses
+to start with status 1 if a session or replacement holds the lock; an error
+opening or locking the file returns 2. A session holds a shared lock for its
+lifetime and refuses to start during replacement. Checking status followed by
+an unguarded replacement is **not safe**: another session can start between
+those operations. The replacement command must complete all file changes before
+it exits, and deployment must treat every nonzero result as refusal or failure.
+Neither status nor replacement starts or stops applications.
+
+Every session leaves its record behind, including after a normal exit, because
+the launcher cannot prove that all of its children have stopped. After the
+session ends, inspect the container's processes and stop every process that
+could be using the release before clearing those records deliberately:
+
+```sh
+docker exec ros-humble python3 /usr/local/bin/geicar-session.py recover
+```
+
+Recovery takes the exclusive lock and refuses while a guarded session or
+replacement is active. It does not inspect or stop processes; only use it
+after that manual verification. Until then, status and replacement return 2.
+
+This is a cooperative guard, not process discovery: every release user and
+every replacement must use it. Do not source the release elsewhere, detach
+processes from the session, or exit or kill the session before all its
+application processes have stopped. Programs that close inherited file
+descriptors can outlive a successfully exited session without holding its lock.
+An independently started or detached process is not detected; follow the
+session lifetime rule even when the guard reports idle.
+The `--lock`, `--ros-setup`, and `--release-setup` options are intended for
+consistent site configuration and testing: changing them for one participant
+can defeat coordination or isolation.
+
+The focused checks can be run on a machine with Python 3:
+
+```sh
+python3 -m unittest discover -s docker/ros2/jetson-release/tests -p 'test_session.py'
+```
+
+The ROS package-discovery check is skipped without `/opt/ros/humble`; the suite
+also runs in the local ARM64 release image. It exercises synthetic package
+indexes, session exit, locking, interrupted-session recovery and guard errors,
+not actual deployment, target mounts, application crashes or vehicle hardware.
