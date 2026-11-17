@@ -203,3 +203,6 @@ ros2 launch geicar_start_jetson geicar.jetson.launch.py
 4. In rviz2, to visualize the camera image:
       - In " global options ", put "base_link" in the field "Fixed Frame", and "10" in "Frame Rate" (or corresponding frame rate)
       - Click on "add" -> "by topic", and select the topic "/image_raw" (image)
+
+For a connection helper that uses the Raspberry Pi as a jump host, see
+[the scripts guide](../scripts/README.md).
