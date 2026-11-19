@@ -173,13 +173,12 @@ The release must appear at `/root/ros2_ws/install` inside the container. The
 existing workspace must remain untouched on the host: mount a **separate,
 host-backed release parent directory** at `/root/ros2_ws` in the container,
 with the release under its `install/` child. Do not bind-mount the `install`
-directory itself if a future deployment will replace that directory: a bind
+directory itself when deploying: a bind
 mount can keep referring to the old directory after a rename. Changing mounts
 requires recreating the container; inspect its existing settings and preserve
 its devices, network, other mounts and configuration first. Do not recreate it
 as part of starting a session. The release must already be installed and its
-runtime compatibility verified; the future deployment procedure is not part of
-this issue.
+runtime compatibility verified; the deployment procedure is described below.
 
 Copy `session.py` into a stable location in that container, for example
 `/usr/local/bin/geicar-session.py`, and create a persistent, writable guard
@@ -224,7 +223,7 @@ behavior separately. Stop the launched application and its children before
 exiting the session with Ctrl-D. Sourcing a different environment affects only
 that shell and future children; it does not change already running processes.
 
-A future deployment must run its **entire replacement operation** under the
+Deployment runs its **entire replacement operation** under the
 same exclusive guard inside the same container and PID namespace, for example:
 
 ```sh
@@ -276,3 +275,205 @@ The ROS package-discovery check is skipped without `/opt/ros/humble`; the suite
 also runs in the local ARM64 release image. It exercises synthetic package
 indexes, session exit, locking, interrupted-session recovery and guard errors,
 not actual deployment, target mounts, application crashes or vehicle hardware.
+
+## Deploy the Jetson release over SSH
+
+Build an artifact first with `jetson-release/build.sh`. The Mac needs Python
+3.8 or later and SSH; the Jetson host needs Python 3, Docker, and permission
+for the SSH user to use Docker without an interactive `sudo` prompt. Docker
+access grants powerful host privileges; configure it deliberately. The running
+container needs Python 3, Bash, `dpkg-query`, pip, `ldd`, ROS Humble, and the
+runtime dependencies from the build. Deployment never starts or stops the
+container or nodes.
+
+Configure SSH host aliases locally; substitute your actual hostnames, users and
+identity settings. Either direct Ethernet or a Pi jump route works through the
+same command; SSH selects the route:
+
+```sshconfig
+Host car-jetson-direct
+    HostName YOUR_JETSON_ADDRESS
+    User YOUR_JETSON_USER
+
+Host car-pi
+    HostName YOUR_PI_ADDRESS
+    User YOUR_PI_USER
+
+Host car-jetson-via-pi
+    HostName YOUR_JETSON_ADDRESS_AS_SEEN_FROM_PI
+    User YOUR_JETSON_USER
+    ProxyJump car-pi
+```
+
+Test the selected alias with `ssh car-jetson-direct` or
+`ssh car-jetson-via-pi` first, including host-key verification and authentication.
+The deploy command uses SSH's standard configuration and does not embed
+credentials or addresses. It accepts an alias, not a `user@host` argument.
+
+### Prepare the existing container
+
+On the Jetson host, inspect the **running** container and its mounts first:
+
+```sh
+docker inspect --format '{{json .Mounts}}' ros-humble
+docker inspect --format '{{json .Config.User}} {{.State.Running}}' ros-humble
+docker exec ros-humble sh -c 'id; uname -m; echo "$HOME"; test -f /opt/ros/humble/setup.bash && echo Humble-present'
+```
+
+Record where the current workspace actually lives, and preserve it. If it is
+inside the container's writable layer, copy it to a new, empty host location
+before any container recreation. If it is a host mount, preserve that host
+directory. Do not reuse or remove the existing workspace. The deployment
+requires a **different** writable host bind mount at `/root/ros2_ws`, with no
+additional mounts beneath that path. Its `install` child must be absent on the
+first deployment; an existing install is accepted only if created by this
+command. The parent, not `install`, must be mounted so directory renames are
+visible in the container.
+
+If the running container lacks that mount, adding it requires creating a
+replacement container. First record and preserve the existing container's
+image, network, device mappings, environment, other mounts, and any data in its
+writable layer; incorporate a bind mount such as
+`--mount type=bind,src=/YOUR/SEPARATE/RELEASE-PARENT,dst=/root/ros2_ws` into
+its otherwise equivalent configuration. Retain the original container and
+workspace until their preservation is verified. Container recreation can affect
+running applications and devices and is a deliberate separate operation, not
+part of deployment. The SSH user and container root need write access to the
+release parent. A local Linux filesystem with `flock` and `renameat2` support
+is required; network filesystems have not been validated.
+
+Set up the stable session guard described above outside the release. For
+example, from the Mac copy `jetson-release/session.py` to the Jetson host, then
+on the host create `/root/geicar-release-guard` inside the container and copy
+the script to `/usr/local/bin/geicar-session.py`. For a first setup, when no
+release sessions or replacements are running and the script is not already
+installed:
+
+```sh
+# On the Mac, from the repository root:
+scp docker/ros2/jetson-release/session.py car-jetson-via-pi:/tmp/geicar-session.py
+# On the Jetson host:
+docker exec ros-humble mkdir -p /root/geicar-release-guard
+docker cp /tmp/geicar-session.py ros-humble:/usr/local/bin/geicar-session.py
+```
+
+Preserve the guard directory
+and lock file across all sessions and replacement operations; a separate
+host-backed guard mount is recommended when recreating containers. All release
+users must cooperate with this same guard. Do not replace the guard script or
+lock while operations may be running. The deployment invokes its `replace`
+action inside the existing container and holds the exclusive lock for transfer,
+verification, and replacement.
+
+### Deploy and verify
+
+From the repository root on the Mac, using your chosen alias and completed
+artifact:
+
+```sh
+python3 docker/ros2/jetson-release/deploy.py car-jetson-via-pi /absolute/path/jetson-release.tar --release-parent /YOUR/SEPARATE/RELEASE-PARENT
+# Optional when the running container has a different name:
+python3 docker/ros2/jetson-release/deploy.py car-jetson-direct /absolute/path/jetson-release.tar --release-parent /YOUR/SEPARATE/RELEASE-PARENT --container ros-humble
+```
+
+The command checks the running container's actual mount against the explicitly
+selected host release parent and prints its host source. You must verify that
+this directory is separate from the old workspace. It transfers the artifact
+under the guard, checks its SHA-256, archive
+paths, ARM64/Humble manifest, package indexes, dangling links, ARM64 ELF files
+and dynamic library resolution. For a conservative compatibility check, it
+requires **every** Debian package and Python package version recorded by the
+build to be present in the target, even build-only dependencies. This can
+reject a target that might otherwise run the release; compare the reported
+versions and prepare or rebuild for the actual environment. Archive hard links,
+special files, and links escaping the install are refused. Package-specific CPU
+flags and hardware behavior still need separate verification.
+The staged library check sources the staged install's hooks in a clean shell;
+the install is still at a temporary path at that point. Check libraries again
+in the actual session at the fixed installation path.
+
+The artifact, its package list, and manifest must come from the same successful
+build. The installed release records its digest in
+`/root/ros2_ws/install/.geicar-artifact-sha256`, its package list in
+`.geicar-packages.txt`, and its manifest in `.geicar-release-manifest.txt`.
+Use the guarded session instructions above to verify package origins, the
+absence of an old-workspace-only package, and to launch deliberately. Check
+native libraries and generated paths on the actual target, for example:
+
+```sh
+docker exec ros-humble python3 /usr/local/bin/geicar-session.py session -- bash -c \
+  'ros2 pkg prefix usb_cam; ldd /root/ros2_ws/install/usb_cam/lib/usb_cam/usb_cam_node_exe; python3 -c "from interfaces.msg import MotorsOrder; import serial, scservo_sdk; MotorsOrder()"'
+```
+
+Inspect the `ldd` output for missing libraries and repeat the check for other
+installed executables and libraries that will be used. This creates a session
+record, which requires the manual process inspection and
+`recover` procedure above before another deployment. Do not interpret package
+discovery or a successful build as a camera, lidar, arm or car test.
+
+### Interruption and recovery
+
+A failed build or interrupted transfer does not replace the active release. A
+checksum failure or any inability to establish the guard refuses replacement.
+The command stages on the same mount and uses Linux atomic exchange when
+available. If exchange is unsupported, it moves the old release aside while
+holding the exclusive guard, then installs the fully verified new release. An
+interruption in that short gap can leave `install` absent, but retains the old
+release in a `.geicar-stage-*` directory. Sessions cannot use a missing install.
+An interruption after the new install is moved into place can leave both the
+new install and the previous copy. In either case a later deployment refuses to
+proceed while any stage directory remains. An SSH disconnect after a complete
+transfer may occur after activation; inspect the installed digest rather than
+assuming the old or new release is active.
+
+Before recovery, inspect processes and clear session records as described in the
+guard section. Under the same exclusive guard, inspect each `.geicar-stage-*`
+directory and its `previous`, `install`, and `transfer.tar` entries. Never
+remove the only complete copy. If `install` is absent and a stage contains
+`previous`, restore it to `/root/ros2_ws/install` under the exclusive guard;
+if `install` is present, compare its digest and the retained copy before
+choosing which to keep. A stage's `install` may be the old release after an
+atomic exchange or an unactivated new release before exchange; check its digest.
+Remove the specific stage directory only after confirming a complete chosen
+release is in place. Run any recovery file operations through
+`geicar-session.py replace -- ...`, not after a separate status check. A stage
+left during an initial transfer may contain only partial staging data; it does
+not represent an activated release. Preserve unrelated files throughout.
+
+For example, after confirming that `install` is absent and that the named
+stage's `previous` is the complete old release, restore it with the guard:
+
+```sh
+docker exec ros-humble python3 /usr/local/bin/geicar-session.py replace -- \
+  sh -c 'test ! -e /root/ros2_ws/install && mv -T -n /root/ros2_ws/.geicar-stage-CHOSEN/previous /root/ros2_ws/install'
+```
+
+Substitute the inspected stage name and check the result before removing any
+stage. If the guard reports a session record, first follow its manual recovery
+procedure; never delete or replace the guard lock to force progress.
+
+Local command-boundary tests use a fake SSH transport and a disposable ARM64
+container. With the image and an artifact built as above:
+
+```sh
+GEICAR_DEPLOY_TEST_IMAGE=geicar-jetson-release:humble \
+GEICAR_DEPLOY_TEST_ARTIFACT=/absolute/path/jetson-release.tar \
+python3 -m unittest discover -s docker/ros2/jetson-release/tests
+```
+
+These checks do not establish the actual Jetson's mount, permissions, installed
+libraries, or camera, lidar, arm and vehicle behavior. Those target checks must
+be recorded separately when the car is reachable.
+
+On 19 November 2026, the ARM64 artifact build and clean-container discovery
+check passed on the Mac. The disposable-container deployment checks exercised
+installation, replacement, transfer interruption, guarded refusal, concurrent
+session refusal, package isolation, generated message loading, and runtime
+dependency checks. OS-level fault injection in the disposable container also
+checked rollback after a failed replacement and recovery after killing the
+replacement between renames. The complete local suite passed 20 tests with one
+ROS-dependent host test skipped; all seven session tests also passed in the
+ARM64 ROS image, including that skipped check. The Jetson could not be reached
+over SSH, so its actual
+mount, installation path, compatibility, camera, lidar, arm, and car behavior
+remain unverified.
