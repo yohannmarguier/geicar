@@ -34,6 +34,8 @@ Start with [README.md](README.md) for the inherited platform overview, then use:
 | `raspberryPI3/` | Vehicle control, joystick input, CAN communication, system checks, and simulation integration. Read [initial_configuration.md](raspberryPI3/initial_configuration.md) and [ros2_ws/how_to_compile.md](raspberryPI3/ros2_ws/how_to_compile.md); packages are in `ros2_ws/src/`. |
 | `jetsonNano/` | Camera, lidar, and perception work. Read [initial_configuration.md](jetsonNano/initial_configuration.md) and [ros2_ws/how_to_compile.md](jetsonNano/ros2_ws/how_to_compile.md). Driver guides: [usb_cam](jetsonNano/ros2_ws/src/usb_cam/README.md) and [rplidar_ros2](jetsonNano/ros2_ws/src/rplidar_ros2/README.md). |
 | `jetsonNano/ros2_ws/src/so-arm101/` | Experimental powered SO-101 follower dance package: [README.md](jetsonNano/ros2_ws/src/so-arm101/README.md). |
+| `jetsonNano/ros2_ws/src/so101_follower_moveit/` | SO-101 position goals and mock arm setup: [README.md](jetsonNano/ros2_ws/src/so101_follower_moveit/README.md). |
+| `jetsonNano/ros2_ws/src/so101_hw_interface/` | SO-101 motor bridge and calibration: [README.md](jetsonNano/ros2_ws/src/so101_hw_interface/README.md). |
 | `nucleoF103/` | Motor and steering control, power, and ultrasonic sensors. Read [software_description.md](nucleoF103/documentation/software/software_description.md) and the hardware documents in `documentation/`. |
 | `nucleoL476/` | GPS and IMU firmware. Read [README.md](nucleoL476/README.md) and [initial_configuration.md](nucleoL476/initial_configuration.md). |
 | `carte-imu-gps-freertos/` | FreeRTOS sensor-board implementation. Read [how_to_use.md](carte-imu-gps-freertos/how_to_use.md), including its serial frame format and application structure. |

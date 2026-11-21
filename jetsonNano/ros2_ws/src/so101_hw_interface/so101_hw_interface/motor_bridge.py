@@ -73,6 +73,8 @@ class MotorBridge(Node):
         # Declare parameters so they can be overridden from launch/CLI
         self.declare_parameter("port", PORT_DEFAULT)
         self.declare_parameter("calib_file", str(CALIB_FILE))
+        self.declare_parameter("require_calibration", False)
+        self.stop_on_bus_error = self.declare_parameter("stop_on_bus_error", False).value
 
         port = self.get_parameter("port").get_parameter_value().string_value
         if not port:
@@ -84,28 +86,6 @@ class MotorBridge(Node):
             for name, cfg in JOINTS.items()
         }
         self.bus = FeetechMotorsBus(port, motors)
-
-        self.get_logger().info(f"Connecting to Feetech bus on {port} …")
-        try:
-            self.bus.connect()
-        except Exception as exc:  # noqa: BLE001
-            self.get_logger().error(f"Could not open motor bus: {exc}")
-            raise
-        self.bus.configure_motors()
-        self.bus.enable_torque()
-        self.get_logger().info("Motor bus connected and configured.")
-
-        # Publishers / Subscribers
-        self.joint_states_pub = self.create_publisher(JointState, "so101_follower/joint_states", 10)
-        self.joint_commands_sub = self.create_subscription(
-            JointState,
-            "so101_follower/joint_commands",
-            self._command_cb,
-            10,
-        )
-
-        # Command cache (rad)
-        self.current_commands: dict[str, float] = {name: 0.0 for name in JOINTS}
 
         # Feetech STS3215 resolution: 4096 steps per 2π rad
         self._steps_per_rad = 4096.0 / (2 * math.pi)
@@ -123,11 +103,58 @@ class MotorBridge(Node):
         else:
             self.get_logger().warn(f"Calibration file {calib_path} not found – will capture offsets on first read.")
 
+        if self.get_parameter("require_calibration").value and (
+            self._limits is None or self._limits.keys() != JOINTS.keys()
+        ):
+            raise RuntimeError(f"MoveIt requires calibration for all six joints in {calib_path}")
+        if self._limits and any(low > high for low, high in self._limits.values()):
+            raise RuntimeError(f"Invalid joint limits in {calib_path}")
+
+        self.joint_states_pub = self.create_publisher(JointState, "so101_follower/joint_states", 10)
+        self.joint_commands_sub = self.create_subscription(
+            JointState, "so101_follower/joint_commands", self._command_cb, 10
+        )
+
+        self.get_logger().info(f"Connecting to Feetech bus on {port} …")
+        torque_requested = False
+        try:
+            self.bus.connect()
+            modes = self.bus.sync_read("Operating_Mode", normalize=False)
+            if any(modes[name] != 0 for name in JOINTS):
+                raise RuntimeError("All SO-101 motors must be in position mode")
+            measured = self.bus.sync_read("Present_Position", normalize=False)
+            if self._limits:
+                outside_range = [
+                    f"{name} reads {measured[name]} ticks (allowed {low}–{high})"
+                    for name, (low, high) in self._limits.items()
+                    if not low <= measured[name] <= high
+                ]
+                if outside_range:
+                    details = ", ".join(outside_range)
+                    raise RuntimeError(f"Arm startup refused with calibration {calib_path}. {details}.")
+            if self._home_offsets is None:
+                self._home_offsets = measured.copy()
+            self.current_commands = self._positions_in_radians(measured)
+            self.bus.configure_motors()
+            # Use acknowledged writes so a motor cannot start with a stale goal.
+            for name in JOINTS:
+                self.bus.write("Goal_Position", name, measured[name], normalize=False)
+            torque_requested = True
+            self.bus.enable_torque()
+        except Exception:
+            if self.bus.is_connected:
+                self.bus.disconnect(disable_torque=torque_requested)
+            raise
+        self.get_logger().info("Motor bus connected and holding measured joint positions.")
+
         # Timer for periodic read/write (50 Hz)
         self.timer = self.create_timer(0.02, self._timer_cb)
 
-        # Flag to ensure we only command the initial middle position once
-        self._initial_move_done = False
+    def _positions_in_radians(self, raw_positions):
+        return {
+            name: (raw_positions[name] - self._home_offsets.get(name, 0)) / self._steps_per_rad
+            for name in JOINTS
+        }
 
     # ---------------------------------------------------------------------
     # Callbacks
@@ -135,7 +162,7 @@ class MotorBridge(Node):
     def _command_cb(self, msg: JointState):
         """Store desired joint positions from topic (rad)."""
         for name, pos in zip(msg.name, msg.position):
-            if name in self.current_commands:
+            if name in self.current_commands and math.isfinite(pos):
                 self.current_commands[name] = pos
 
     def _timer_cb(self):
@@ -143,18 +170,11 @@ class MotorBridge(Node):
         try:
             raw_positions = self.bus.sync_read("Present_Position", normalize=False)
 
-            # Establish home offsets once (first successful read)
-            if self._home_offsets is None:
-                self._home_offsets = raw_positions
-                self.get_logger().info("Captured home offsets: %s" % self._home_offsets)
-
-            # convert to radians relative to home
-            positions = {
-                n: (raw - self._home_offsets.get(n, 0)) * (2 * math.pi) / 4096.0 if self._home_offsets else 0.0
-                for n, raw in raw_positions.items()
-            }
+            positions = self._positions_in_radians(raw_positions)
         except Exception as exc:  # noqa: BLE001
             self.get_logger().warn(f"sync_read failed: {exc}")
+            if self.stop_on_bus_error:
+                raise
             return
 
         # Publish joint states
@@ -166,41 +186,23 @@ class MotorBridge(Node):
         js.effort = []
         self.joint_states_pub.publish(js)
 
-        # -----------------------------------------------------------------
-        # After the first successful read AND once we have both limits and
-        # home offsets, send a single command to drive each joint to the
-        # middle of its calibrated range. This provides a well-defined pose
-        # on startup without relying on external controllers.
-        # -----------------------------------------------------------------
-        if (
-            not self._initial_move_done
-            and self._home_offsets is not None
-            and self._limits is not None
-        ):
-            for name in JOINTS:
-                if name in self._limits and name in self._home_offsets:
-                    low, high = self._limits[name]
-                    mid_raw = int((low + high) / 2)
-                    # Convert to radians relative to home
-                    self.current_commands[name] = (mid_raw - self._home_offsets[name]) * (2 * math.pi) / 4096.0
-            self._initial_move_done = True
-            self.get_logger().info("Issued initial command to move joints to mid-range position.")
-
         # --- Write goal positions
         try:
             # convert desired rad to raw steps relative to home
             raw_goals = {}
             for n, rad in self.current_commands.items():
                 home = self._home_offsets.get(n, 0) if self._home_offsets else 0
-                raw = int(home + rad * self._steps_per_rad)
+                raw = home + rad * self._steps_per_rad
                 # clamp to limits if available
                 if self._limits and n in self._limits:
                     low, high = self._limits[n]
                     raw = max(low, min(high, raw))
-                raw_goals[n] = raw
+                raw_goals[n] = round(raw)
             self.bus.sync_write("Goal_Position", raw_goals, normalize=False)
         except Exception as exc:  # noqa: BLE001
             self.get_logger().warn(f"sync_write failed: {exc}")
+            if self.stop_on_bus_error:
+                raise
 
 
 # -------------------------------------------------------------------------
@@ -210,16 +212,22 @@ class MotorBridge(Node):
 def main():  # noqa: D401
     """Entry-point."""
     rclpy.init()
-    node = MotorBridge()
+    node = None
     try:
+        node = MotorBridge()
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
     finally:
-        node.bus.disconnect()
-        node.destroy_node()
-        rclpy.shutdown()
+        try:
+            if node is not None:
+                try:
+                    node.bus.disconnect()
+                finally:
+                    node.destroy_node()
+        finally:
+            rclpy.try_shutdown()
 
 
 if __name__ == "__main__":
-    main() 
+    main()

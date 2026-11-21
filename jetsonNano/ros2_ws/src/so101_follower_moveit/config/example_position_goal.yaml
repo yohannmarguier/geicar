@@ -1,0 +1,17 @@
+request:
+  group_name: arm
+  allowed_planning_time: 3.0
+  max_velocity_scaling_factor: 0.1
+  max_acceleration_scaling_factor: 0.1
+  goal_constraints:
+    - position_constraints:
+        - header: {frame_id: base_link}
+          link_name: gripper_link
+          weight: 1.0
+          constraint_region:
+            primitives:
+              - {type: 2, dimensions: [0.003]}
+            primitive_poses:
+              - position: {x: 0.056, y: -0.272, z: 0.267}
+planning_options:
+  plan_only: true

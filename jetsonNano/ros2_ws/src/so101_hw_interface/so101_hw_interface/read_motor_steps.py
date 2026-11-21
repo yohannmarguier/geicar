@@ -15,20 +15,7 @@ import argparse
 import sys
 import yaml
 
-from so101_hw_interface.motors.feetech.feetech import FeetechMotorsBus
-from so101_hw_interface.motors import Motor, MotorNormMode
-
-# -----------------------------------------------------------------------------
-# Joint → (ID, model) map – keep in sync with the rest of the package
-# -----------------------------------------------------------------------------
-JOINTS: dict[str, dict[str, int | str]] = {
-    "shoulder_pan": {"id": 1, "model": "sts3215"},
-    "shoulder_lift": {"id": 2, "model": "sts3215"},
-    "elbow_flex": {"id": 3, "model": "sts3215"},
-    "wrist_flex": {"id": 4, "model": "sts3215"},
-    "wrist_roll": {"id": 5, "model": "sts3215"},
-    "gripper": {"id": 6, "model": "sts3215"},
-}
+from so101_hw_interface.motor_bridge import FeetechMotorsBus, JOINTS, Motor, MotorNormMode
 
 
 # -----------------------------------------------------------------------------
@@ -49,7 +36,7 @@ def main() -> None:  # noqa: D401
     parser.add_argument(
         "--once",
         action="store_true",
-        help="Read once and exit (default). If omitted the script keeps printing every second.",
+        help="Read once and exit. If omitted the script keeps printing every second.",
     )
     parser.add_argument(
         "--rate",
@@ -87,8 +74,8 @@ def main() -> None:  # noqa: D401
                 elapsed = time.time() - start
                 time.sleep(max(0.0, period - elapsed))
     finally:
-        bus.disconnect()
+        bus.disconnect(disable_torque=False)
 
 
 if __name__ == "__main__":
-    main() 
+    main()

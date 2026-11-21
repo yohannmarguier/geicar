@@ -26,9 +26,15 @@ arm_controller:
       - shoulder_pan
       - shoulder_lift
       - elbow_flex
+      - wrist_flex
       - wrist_roll
-      - wrist_pitch
-      - wrist_yaw
+    constraints:
+      goal_time: 1.0
+      shoulder_pan: {goal: 0.04}
+      shoulder_lift: {goal: 0.04}
+      elbow_flex: {goal: 0.04}
+      wrist_flex: {goal: 0.04}
+      wrist_roll: {goal: 0.04}
 
 gripper_controller:
   ros__parameters:
@@ -39,4 +45,7 @@ gripper_controller:
       - velocity
     action_ns: follow_joint_trajectory
     joints:
-      - gripper_jaw
+      - gripper
+    constraints:
+      goal_time: 1.0
+      gripper: {goal: 0.04}
