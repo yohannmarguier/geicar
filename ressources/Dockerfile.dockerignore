@@ -1,0 +1,5 @@
+**
+!jetsonNano/ros2_ws/src/so101_*
+!jetsonNano/ros2_ws/src/so101_*/**
+!ressources/so101-rviz.sh
+**/__pycache__/

@@ -36,6 +36,7 @@ Start with [README.md](README.md) for the inherited platform overview, then use:
 | `jetsonNano/ros2_ws/src/so-arm101/` | Experimental powered SO-101 follower dance package: [README.md](jetsonNano/ros2_ws/src/so-arm101/README.md). |
 | `jetsonNano/ros2_ws/src/so101_follower_moveit/` | SO-101 position goals and mock arm setup: [README.md](jetsonNano/ros2_ws/src/so101_follower_moveit/README.md). |
 | `jetsonNano/ros2_ws/src/so101_hw_interface/` | SO-101 motor bridge and calibration: [README.md](jetsonNano/ros2_ws/src/so101_hw_interface/README.md). |
+| `ressources/` | SO-101 Docker environment with browser-based RViz and USB serial access. See the [Docker guide](ressources/README.md). |
 | `nucleoF103/` | Motor and steering control, power, and ultrasonic sensors. Read [software_description.md](nucleoF103/documentation/software/software_description.md) and the hardware documents in `documentation/`. |
 | `nucleoL476/` | GPS and IMU firmware. Read [README.md](nucleoL476/README.md) and [initial_configuration.md](nucleoL476/initial_configuration.md). |
 | `carte-imu-gps-freertos/` | FreeRTOS sensor-board implementation. Read [how_to_use.md](carte-imu-gps-freertos/how_to_use.md), including its serial frame format and application structure. |
