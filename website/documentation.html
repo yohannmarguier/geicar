@@ -15,7 +15,7 @@
     .bg-soft { background-color: #9fd08e; }
     .bg-sage { background-color: #b8daac; }
     .bg-hold { background-color: #FF69B4; }
-    .bg-holdsoft { background-color: #ff9cce; }
+    .bg-holdsoft { background-color: #fde8ef; }
 
     .text-deep { color: #274e13; }
     .text-primary { color: #4f943c; }
@@ -25,7 +25,6 @@
     .border-soft { border-color: #9fd08e; }
     .border-sage { border-color: #b8daac; }
   </style>
-
 </head>
 <body class="bg-[#effceb] text-gray-800 font-sans flex flex-col min-h-screen">
   
@@ -33,14 +32,15 @@
   <nav class="bg-[#274e13] text-white border-b border-[#274e13] sticky top-0 z-50 shadow-md">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <a href="index.html" class="flex items-center space-x-3 text-xl font-bold tracking-tight text-[#effceb]">
-        <i class="fa-solid fa-leaf text-[#9fd08e]"></i> <span>EcoSense</span>
+        <i class="fa-solid fa-leaf text-[#9fd08e]"></i> 
+        <span>EcoSense <span class="text-[#FF69B4]">by Lunch</span></span>
       </a>
       <div class="hidden md:flex space-x-8 font-medium text-sm">
-        <a href="index.html" class="hover:text-[#FF69B4] transition ">Home</a>
+        <a href="index.html" class="hover:text-[#FF69B4] transition">Home</a>
         <a href="documentation.html" class="hover:text-[#FF69B4] transition text-[#FF69B4] font-bold underline underline-offset-8">Documentation</a>
-        <a href="team.html" class="hover:text-[#FF69B4] transition ">Team</a>
-        <a href="car.html" class="hover:text-[#FF69B4] transition ">The Car</a>
-        <a href="get-yours.html" class="hover:text-[#FF69B4] transition ">Get Yours</a>
+        <a href="team.html" class="hover:text-[#FF69B4] transition">Team</a>
+        <a href="car.html" class="hover:text-[#FF69B4] transition">The Car</a>
+        <a href="get-yours.html" class="hover:text-[#FF69B4] transition">Get Yours</a>
       </div>
       <a href="https://github.com/yohannmarguier/geicar" target="_blank" class="bg-[#4f943c] hover:bg-[#FF69B4] text-white px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shadow-sm">
         <i class="fa-brands fa-github text-sm"></i> GitHub
@@ -48,16 +48,316 @@
     </div>
   </nav>
 
-
-  <div class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full space-y-12">
-    <!-- TITLE -->
-    <div class="text-center max-w-3xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-bold text-[#274e13]">Technical Documentation & Reports</h1>
-      <p class="text-gray-600 mt-2 text-sm">System requirements, sprint roadmaps, and presentation archives for ECOSense.</p>
+  <div class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full space-y-14">
+    
+    <!-- HEADER TITLE -->
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <span class="inline-block bg-[#FF69B4]/15 text-[#274e13] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider border border-[#FF69B4]/40">
+        <i class="fa-solid fa-book-open text-[#4f943c] mr-1"></i> Engineering Hub
+      </span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-[#274e13] tracking-tight">Technical Documentation & Progress</h1>
+      <p class="text-gray-600 text-sm md:text-base">Project plan, state-of-the-art research, vehicle evolution across sprints, and presentation archives.</p>
     </div>
 
-    <!-- OPERATIONAL REQUIREMENTS TABLE -->
-    <div class="bg-white rounded-2xl shadow-sm border border-[#9fd08e] overflow-hidden">
+    <!-- 1. PROJECT & VEHICLE EVOLUTION (SPRINT 0 TO SPRINT 5 — CURRENT: SPRINT 2) -->
+    <section class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e] space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#effceb] pb-4">
+        <div>
+          <h2 class="text-xl font-bold text-[#274e13] flex items-center gap-2">
+            <i class="fa-solid fa-car-side text-[#FF69B4]"></i> GEIcar Evolution Roadmap (Sprint 0 to 5)
+          </h2>
+          <p class="text-xs text-gray-500 mt-1">Tracking project foundations and hardware/software maturity of our autonomous vehicle.</p>
+        </div>
+        <span class="inline-flex items-center gap-2 bg-[#fde8ef] text-[#274e13] text-xs font-bold px-4 py-2 rounded-full border border-[#FF69B4]">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#FF69B4] animate-pulse"></span> Current Stage: Sprint 2
+        </span>
+      </div>
+
+      <!-- 6-STEP PROGRESSION TRACKER (SP0 + 5 VEHICLE SPRINTS) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 pt-2">
+        
+        <!-- Sprint 0 (Completed) -->
+        <div class="p-4 rounded-xl bg-[#effceb] border border-[#4f943c] relative">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-extrabold text-[#4f943c] uppercase">Sprint 0</span>
+            <i class="fa-solid fa-circle-check text-[#4f943c]"></i>
+          </div>
+          <div class="text-center my-3 text-[#274e13] text-2xl">
+            <i class="fa-solid fa-compass-drafting"></i>
+          </div>
+          <h4 class="font-bold text-xs text-[#274e13] text-center">Study & Framing</h4>
+          <p class="text-[11px] text-gray-600 text-center mt-1">Topic analysis, Project Plan drafting & LiDAR / AI state of the art.</p>
+        </div>
+
+        <!-- Sprint 1 (Completed) -->
+        <div class="p-4 rounded-xl bg-[#effceb] border border-[#4f943c] relative">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-extrabold text-[#4f943c] uppercase">Sprint 1</span>
+            <i class="fa-solid fa-circle-check text-[#4f943c]"></i>
+          </div>
+          <div class="text-center my-3 text-[#274e13] text-2xl">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h4 class="font-bold text-xs text-[#274e13] text-center">Safety & Sensors</h4>
+          <p class="text-[11px] text-gray-600 text-center mt-1">LiDAR + 6 ultrasonics E-Stop (0.20m / &lt;10cm), ESP8266 power sensors & YOLO tests.</p>
+        </div>
+
+        <!-- Sprint 2 (ACTIVE / CURRENT LEVEL) -->
+        <div class="p-4 rounded-xl bg-[#fde8ef] border-2 border-[#FF69B4] shadow-md relative transform lg:-translate-y-1">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-extrabold text-[#FF69B4] uppercase">Sprint 2 (Active)</span>
+            <i class="fa-solid fa-spinner fa-spin text-[#FF69B4]"></i>
+          </div>
+          <div class="text-center my-3 text-[#FF69B4] text-3xl">
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <h4 class="font-bold text-xs text-[#274e13] text-center">Patrol, AI & Logs</h4>
+          <p class="text-[11px] text-gray-700 text-center mt-1">Room patrol & environment labeling, custom YOLO training & CSV energy logs.</p>
+        </div>
+
+        <!-- Sprint 3 (Upcoming) -->
+        <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 opacity-80">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-bold text-gray-500 uppercase">Sprint 3</span>
+            <i class="fa-regular fa-clock text-gray-400"></i>
+          </div>
+          <div class="text-center my-3 text-gray-400 text-2xl">
+            <i class="fa-solid fa-crosshairs"></i>
+          </div>
+          <h4 class="font-bold text-xs text-gray-700 text-center">Precision Docking</h4>
+          <p class="text-[11px] text-gray-500 text-center mt-1">Autonomous target approach (&lt;10 cm) & global carbon footprint analysis.</p>
+        </div>
+
+        <!-- Sprint 4 (Upcoming) -->
+        <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 opacity-80">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-bold text-gray-500 uppercase">Sprint 4</span>
+            <i class="fa-regular fa-clock text-gray-400"></i>
+          </div>
+          <div class="text-center my-3 text-gray-400 text-2xl">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <h4 class="font-bold text-xs text-gray-700 text-center">Arm Pick & HMI</h4>
+          <p class="text-[11px] text-gray-500 text-center mt-1">Robotic arm waste grasping, onboard storage & live telemetry dashboard.</p>
+        </div>
+
+        <!-- Sprint 5 (Upcoming) -->
+        <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 opacity-80">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-bold text-gray-500 uppercase">Sprint 5</span>
+            <i class="fa-solid fa-flag-checkered text-gray-400"></i>
+          </div>
+          <div class="text-center my-3 text-gray-400 text-2xl">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <h4 class="font-bold text-xs text-gray-700 text-center">Full Ecocollecte</h4>
+          <p class="text-[11px] text-gray-500 text-center mt-1">End-to-end autonomous patrol scenario & final jury demonstration.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. PROJECT PLAN & STATE OF THE ART (LIDAR & AI) -->
+    <section class="grid md:grid-cols-3 gap-6">
+      
+      <!-- Project Plan Card -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl border border-[#9fd08e]">
+              <i class="fa-solid fa-file-contract"></i>
+            </div>
+            <span class="text-xs font-bold bg-[#274e13] text-white px-3 py-1 rounded-full">Core Document</span>
+          </div>
+          <h3 class="text-lg font-bold text-[#274e13] mb-2">ECOSense Project Plan</h3>
+          <p class="text-xs text-gray-600 leading-relaxed mb-4">
+            Complete engineering baseline produced during Sprint 0: stakeholder matrix, functional backlog, operational requirements, Agile schedule control, and risk matrix.
+          </p>
+        </div>
+        <a href="Document/Project plan EcoSense.docx.pdf" target="_blank" class="w-full py-2.5 px-4 bg-[#4f943c] hover:bg-[#FF69B4] text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-download"></i> View Project Plan (PDF)
+        </a>
+      </div>
+
+      <!-- State of the Art: LiDAR & SLAM -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl border border-[#9fd08e]">
+              <i class="fa-solid fa-broadcast-tower"></i>
+            </div>
+            <span class="text-xs font-bold bg-[#fde8ef] text-[#274e13] px-3 py-1 rounded-full border border-[#f48fb1]">State of the Art</span>
+          </div>
+          <h3 class="text-lg font-bold text-[#274e13] mb-2">LiDAR & SLAM Navigation</h3>
+          <p class="text-xs text-gray-600 leading-relaxed mb-4">
+            Comparative study of RPLidar & ultrasonic fusion (<code class="bg-gray-100 px-1 rounded">/scan</code>, <code class="bg-gray-100 px-1 rounded">/us_data</code>), ROS 2 SLAM mapping, environment labeling, and NAV2 path-planning optimization.
+          </p>
+        </div>
+        <a href="Document/SOTA_LiDAR_SLAM.pdf" target="_blank" class="w-full py-2.5 px-4 bg-[#effceb] hover:bg-[#FF69B4] text-[#274e13] hover:text-white border border-[#9fd08e] hover:border-[#FF69B4] text-xs font-bold rounded-xl transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-file-lines"></i> Read LiDAR Study
+        </a>
+      </div>
+
+      <!-- State of the Art: Embedded AI Vision -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] hover:border-[#FF69B4] transition flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-[#effceb] text-[#4f943c] rounded-xl flex items-center justify-center text-xl border border-[#9fd08e]">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <span class="text-xs font-bold bg-[#fde8ef] text-[#274e13] px-3 py-1 rounded-full border border-[#f48fb1]">State of the Art</span>
+          </div>
+          <h3 class="text-lg font-bold text-[#274e13] mb-2">Embedded AI Vision (YOLO)</h3>
+          <p class="text-xs text-gray-600 leading-relaxed mb-4">
+            Benchmark of lightweight YOLO architectures, custom waste dataset creation (cans, cups, bottles), and real-time inference deployment on NVIDIA Jetson Nano.
+          </p>
+        </div>
+        <a href="Document/IA.pdf" target="_blank" class="w-full py-2.5 px-4 bg-[#effceb] hover:bg-[#FF69B4] text-[#274e13] hover:text-white border border-[#9fd08e] hover:border-[#FF69B4] text-xs font-bold rounded-xl transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-file-lines"></i> Read AI Vision Study
+        </a>
+      </div>
+
+    </section>
+
+    <!-- 3. SPRINTS MISSIONS & SLIDES ARCHIVE -->
+    <section class="bg-white p-8 rounded-2xl shadow-sm border border-[#9fd08e]">
+      <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-4 border-b border-gray-100">
+        <div>
+          <h2 class="text-xl font-bold text-[#274e13] flex items-center gap-2">
+            <i class="fa-solid fa-person-chalkboard text-[#4f943c]"></i> Sprint Reviews, Missions & Slides
+          </h2>
+          <p class="text-xs text-gray-500 mt-1">Updated continuously with completed milestones, research objectives, and presentation decks.</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- SP0 -->
+        <div class="p-5 rounded-xl border border-[#9fd08e] bg-[#effceb]/40 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-[#274e13] text-sm">SP0 — Framing & State of the Art</span>
+              <span class="text-[11px] bg-[#4f943c] text-white px-2.5 py-0.5 rounded-full font-semibold">Done · 03/11</span>
+            </div>
+            <ul class="text-xs text-gray-600 space-y-1.5 mt-3 list-disc list-inside">
+              <li>Subject comprehension & legacy GEIcar hardware/ROS2 audit</li>
+              <li>Drafting of the <strong>ECOSense Project Plan</strong> (backlog, risks, Agile setup)</li>
+              <li><strong>State-of-the-art</strong> research on LiDAR/SLAM & embedded AI vision</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-[#b8daac]/50 flex justify-between items-center">
+            <span class="text-[11px] text-gray-500 font-mono">Framing & SOTA</span>
+            <a href="Document/Slide0.pdf" target="_blank" class="text-xs font-bold text-[#4f943c] hover:text-[#FF69B4] flex items-center gap-1 transition">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Slides
+            </a>
+          </div>
+        </div>
+
+        <!-- SP1 -->
+        <div class="p-5 rounded-xl border border-[#9fd08e] bg-[#effceb]/40 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-[#274e13] text-sm">SP1 — Safety, Energy & AI</span>
+              <span class="text-[11px] bg-[#4f943c] text-white px-2.5 py-0.5 rounded-full font-semibold">Done · 17/11</span>
+            </div>
+            <ul class="text-xs text-gray-600 space-y-1.5 mt-3 list-disc list-inside">
+              <li><strong>Energy:</strong> Grove ACS725 + voltage divider on ESP8266 (<code class="bg-white px-1 rounded">A0</code>) & <code class="bg-white px-1 rounded">/energy</code></li>
+              <li><strong>E-Stop:</strong> RPLidar (0.20m zones) + 6 ultrasonics (&lt;10cm), <code class="bg-white px-1 rounded">safety_node</code> & <code class="bg-white px-1 rounded">voiture.sh</code></li>
+              <li><strong>AI & Web:</strong> YOLO tested on Jetson, dataset started; Home & Team pages live</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-[#b8daac]/50 flex justify-between items-center">
+            <span class="text-[11px] text-gray-500 font-mono">18-Slide Review</span>
+            <a href="Document/Slide1.pdf" target="_blank" class="text-xs font-bold text-[#4f943c] hover:text-[#FF69B4] flex items-center gap-1 transition">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Slides
+            </a>
+          </div>
+        </div>
+
+        <!-- SP2 (CURRENT) -->
+        <div class="p-5 rounded-xl border-2 border-[#FF69B4] bg-[#fde8ef]/60 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-[#274e13] text-sm">SP2 — Patrol, AI & Logs</span>
+              <span class="text-[11px] bg-[#FF69B4] text-white px-2.5 py-0.5 rounded-full font-semibold">Current · 01/12</span>
+            </div>
+            <ul class="text-xs text-gray-700 space-y-1.5 mt-3 list-disc list-inside">
+              <li><strong>Energy:</strong> Multiplexer wiring, dashboard link & CSV/graph logs</li>
+              <li><strong>Navigation:</strong> Map position estimation, room patrol & obstacle labeling</li>
+              <li><strong>AI Vision:</strong> Complete dataset, train/evaluate model & integrate on car</li>
+              <li><strong>Website:</strong> Build Documentation page & deploy via GitHub Pages</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-[#f48fb1]/50 flex justify-between items-center">
+            <span class="text-[11px] text-[#274e13] font-mono font-semibold">In Progress</span>
+            <a href="Document/Slides_SP2.pdf" target="_blank" class="text-xs font-bold text-[#FF69B4] hover:text-[#274e13] flex items-center gap-1 transition">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Slides
+            </a>
+          </div>
+        </div>
+
+        <!-- SP3 -->
+        <div class="p-5 rounded-xl border border-gray-200 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-[#274e13] text-sm">SP3 — Docking & Carbon</span>
+              <span class="text-[11px] bg-gray-200 text-gray-700 px-2.5 py-0.5 rounded-full font-semibold">Planned · 15/12</span>
+            </div>
+            <ul class="text-xs text-gray-600 space-y-1.5 mt-3 list-disc list-inside">
+              <li>Camera-LiDAR fusion & 3D waste localization</li>
+              <li>Autonomous approach & docking (&lt;10 cm)</li>
+              <li>Global carbon footprint estimation</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
+            <span class="text-[11px] text-gray-400 font-mono">Upcoming</span>
+            <span class="text-xs text-gray-400 italic">Slides pending</span>
+          </div>
+        </div>
+
+        <!-- SP4 -->
+        <div class="p-5 rounded-xl border border-gray-200 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-[#274e13] text-sm">SP4 — Arm & Storage</span>
+              <span class="text-[11px] bg-gray-200 text-gray-700 px-2.5 py-0.5 rounded-full font-semibold">Planned · 12/01</span>
+            </div>
+            <ul class="text-xs text-gray-600 space-y-1.5 mt-3 list-disc list-inside">
+              <li>Robotic arm kinematics & waste grasping</li>
+              <li>Onboard container waste deposit</li>
+              <li>Live camera & telemetry HMI dashboard</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
+            <span class="text-[11px] text-gray-400 font-mono">Upcoming</span>
+            <span class="text-xs text-gray-400 italic">Slides pending</span>
+          </div>
+        </div>
+
+        <!-- SP5 -->
+        <div class="p-5 rounded-xl border border-gray-200 bg-white flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-[#274e13] text-sm">SP5 — Final Scenario</span>
+              <span class="text-[11px] bg-gray-200 text-gray-700 px-2.5 py-0.5 rounded-full font-semibold">Planned · 27/01</span>
+            </div>
+            <ul class="text-xs text-gray-600 space-y-1.5 mt-3 list-disc list-inside">
+              <li>Full end-to-end Ecocollecte patrol</li>
+              <li>Final report & project poster</li>
+              <li>Final jury demonstration</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
+            <span class="text-[11px] text-gray-400 font-mono">Upcoming</span>
+            <span class="text-xs text-gray-400 italic">Slides pending</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. OPERATIONAL REQUIREMENTS TABLE -->
+    <section class="bg-white rounded-2xl shadow-sm border border-[#9fd08e] overflow-hidden">
       <div class="bg-[#274e13] px-6 py-4 border-b border-[#4f943c] flex justify-between items-center">
         <h2 class="text-lg font-bold text-white flex items-center gap-2">
           <i class="fa-solid fa-list-check text-[#9fd08e]"></i> Operational Requirements
@@ -71,7 +371,6 @@
               <th class="p-4">Code</th>
               <th class="p-4">Requirement</th>
               <th class="p-4">Tolerance</th>
-              <th class="p-4">Associated Feature</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100 font-mono text-xs text-gray-700">
@@ -79,123 +378,47 @@
               <td class="p-4 font-bold text-[#4f943c]">1.B.1</td>
               <td class="p-4 font-sans text-gray-800">Emergency Stop: Car halts if an obstacle is within 10 cm in front.</td>
               <td class="p-4 text-[#274e13] font-bold">Stop distance &le; 10 cm</td>
-              <td class="p-4">F3, F4 (Safety & Nav)</td>
             </tr>
             <tr class="hover:bg-[#effceb]/50">
               <td class="p-4 font-bold text-[#4f943c]">2.A.1</td>
               <td class="p-4 font-sans text-gray-800">Instantaneous Power Measurement: Measure and display current/voltage per module.</td>
               <td class="p-4 text-[#274e13] font-bold">5% error, 1 Hz refresh</td>
-              <td class="p-4">F1 (Energy)</td>
             </tr>
             <tr class="hover:bg-[#effceb]/50">
               <td class="p-4 font-bold text-[#4f943c]">2.A.2</td>
               <td class="p-4 font-sans text-gray-800">Cumulative Energy Tracking: Calculate total energy consumed since startup (Wh).</td>
               <td class="p-4 text-[#274e13] font-bold">5% error (Wh)</td>
-              <td class="p-4">F2 (Energy)</td>
             </tr>
             <tr class="hover:bg-[#effceb]/50">
               <td class="p-4 font-bold text-[#4f943c]">3.A.1</td>
               <td class="p-4 font-sans text-gray-800">SLAM Map Localization: Estimate car position on generated map.</td>
               <td class="p-4 text-[#274e13] font-bold">Max error = 10 cm</td>
-              <td class="p-4">F3 (Navigation)</td>
             </tr>
             <tr class="hover:bg-[#effceb]/50">
               <td class="p-4 font-bold text-[#4f943c]">4.A.1</td>
               <td class="p-4 font-sans text-gray-800">Waste AI Recognition: Detect cans/bottles on ground up to 1.5 m via camera.</td>
               <td class="p-4 text-[#274e13] font-bold">&gt; 80% detection rate</td>
-              <td class="p-4">F6, F9 (AI Vision)</td>
             </tr>
             <tr class="hover:bg-[#effceb]/50">
               <td class="p-4 font-bold text-[#4f943c]">6.A.1</td>
               <td class="p-4 font-sans text-gray-800">Robotic Arm Pick & Place: Retrieve identified waste and place in container.</td>
               <td class="p-4 text-[#274e13] font-bold">&gt; 70% success / 10 trials</td>
-              <td class="p-4">F5 (Robotic Arm)</td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
 
-    <!-- PRESENTATIONS & SPRINTS ROADMAP -->
-    <div class="grid md:grid-cols-2 gap-8">
-      <!-- Sprints Roadmap -->
-      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e]">
-        <h2 class="text-xl font-bold text-[#274e13] mb-6 flex items-center gap-2">
-          <i class="fa-solid fa-[#fa-timeline] fa-route text-[#4f943c]"></i> Sprints Release Vision
-        </h2>
-        <div class="space-y-4">
-          <div class="p-4 rounded-xl border-l-4 border-[#4f943c] bg-[#ff9cce]/30">
-            <div class="flex justify-between items-center mb-1">
-              <span class="font-bold text-[#274e13]">SP0 — Setup & Architecture</span>
-              <span class="text-xs bg-[#4f943c] text-white px-2 py-0.5 rounded font-mono">07/11</span>
-            </div>
-            <p class="text-xs text-gray-600">Git repository setup, Jira backlog creation, and legacy code audit.</p>
-          </div>
-          <div class="p-4 rounded-xl border-l-4 border-[#73b54f] bg-white border">
-            <div class="flex justify-between items-center mb-1">
-              <span class="font-bold text-[#274e13]">SP1 — Teleoperation & Emergency Stop</span>
-              <span class="text-xs bg-[#73b54f] text-white px-2 py-0.5 rounded font-mono">18/11</span>
-            </div>
-            <p class="text-xs text-gray-600">Remote control, hardware safety stop validation, and energy monitoring prototype.</p>
-          </div>
-          <div class="p-4 rounded-xl border-l-4 border-[#9fd08e] bg-white border">
-            <div class="flex justify-between items-center mb-1">
-              <span class="font-bold text-[#274e13]">SP2 — Autonomous Patrol & AI Vision</span>
-              <span class="text-xs bg-[#9fd08e] text-gray-800 px-2 py-0.5 rounded font-mono">09/12</span>
-            </div>
-            <p class="text-xs text-gray-600">NAV2 integration for autonomous mapping and YOLO model deployment on Jetson.</p>
-          </div>
-          <div class="p-4 rounded-xl border-l-4 border-gray-300 bg-white border">
-            <div class="flex justify-between items-center mb-1">
-              <span class="font-bold text-[#274e13]">SP3 to SP5 — Arm Pick & Final Patrol</span>
-              <span class="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded font-mono">Jan 2026</span>
-            </div>
-            <p class="text-xs text-gray-600">Arm collection, HMI live streaming, and final defense demonstration scenario.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Presentations & Downloads -->
-      <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#9fd08e] flex flex-col justify-between">
-        <div>
-          <h2 class="text-xl font-bold text-[#274e13] mb-6 flex items-center gap-2">
-            <i class="fa-solid fa-file-pdf text-[#4f943c]"></i> Presentations & Resources
-          </h2>
-          <div class="space-y-4">
-            <div class="p-4 rounded-xl border border-[#b8daac] flex items-center justify-between">
-              <div>
-                <h4 class="font-bold text-sm text-[#274e13]">Sprint 1 Review Presentation</h4>
-                <p class="text-xs text-gray-500">PDF Document · Task allocation & telemetry architecture</p>
-              </div>
-              <span class="text-xs font-bold text-[#4f943c] bg-[#effceb] px-3 py-1 rounded-lg border border-[#9fd08e]">Available</span>
-            </div>
-            <div class="p-4 rounded-xl border border-[#b8daac] flex items-center justify-between">
-              <div>
-                <h4 class="font-bold text-sm text-[#274e13]">ECOSense Project Plan Document</h4>
-                <p class="text-xs text-gray-500">Full specifications, risk matrix & requirements</p>
-              </div>
-              <span class="text-xs font-bold text-[#4f943c] bg-[#effceb] px-3 py-1 rounded-lg border border-[#9fd08e]">Available</span>
-            </div>
-            <div class="p-4 rounded-xl border border-[#b8daac] flex items-center justify-between">
-              <div>
-                <h4 class="font-bold text-sm text-[#274e13]">ROS 2 System Graph Architecture</h4>
-                <p class="text-xs text-gray-500">Node dependencies & message topology</p>
-              </div>
-              <span class="text-xs font-bold text-[#4f943c] bg-[#effceb] px-3 py-1 rounded-lg border border-[#9fd08e]">Diagram</span>
-            </div>
-          </div>
-        </div>
-        <div class="mt-6 pt-4 border-t border-gray-100 text-center">
-          <p class="text-xs text-gray-500">All documentation is synchronized with the main project drive and GitHub repository.</p>
-        </div>
-      </div>
-    </div>
   </div>
 
-  
   <!-- SHARED FOOTER -->
   <footer class="bg-[#274e13] text-[#b8daac] py-8 border-t border-[#4f943c]">
-    <div class="max-w-7xl mx-auto px-6 text-center text-xs space-y-2">
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs space-y-3">
+      <div class="flex justify-center">
+        <a href="https://drive.google.com/drive/folders/1Z_uBNZ_2eqbVME5U0t8EypFXBOtVMlvv?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#4f943c] hover:bg-[#FF69B4] text-white px-4 py-2 rounded-lg font-semibold transition shadow-sm">
+          <i class="fa-brands fa-google-drive text-sm"></i> Access Shared Project Drive
+        </a>
+      </div>
       <p class="font-medium">© 2026 ECOSense Project — Autonomous Eco-Robotics & Energy Telemetry Platform (GEIcar).</p>
       <p class="text-[#FF69B4]">Developed at INSA Toulouse — GEI Department.</p>
     </div>
