@@ -33,7 +33,7 @@ class ArduinoSerialNode(Node):
                 if self.serial_conn.in_waiting > 0:
                     # on lit 1 ligne du arduino
                     line = self.serial_conn.readline().decode('utf-8', errors='ignore').strip()
-                    
+                    self.get_logger().warn(line)
                     if line:
                         # stocker temporairement les infos
                         data_dict = {}
