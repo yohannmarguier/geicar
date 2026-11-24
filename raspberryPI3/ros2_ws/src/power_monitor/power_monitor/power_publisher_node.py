@@ -8,8 +8,8 @@ class ArduinoSerialNode(Node):
         super().__init__('arduino_serial_node')
         
         # Paramètres de liaison série 
-        self.port = '/dev/ttyUSB0'
-        self.baudrate = 9600
+        self.port = '/dev/ttyACM0'
+        self.baudrate = 115200
         
         try:
             self.serial_conn = serial.Serial(self.port, self.baudrate, timeout=1)
