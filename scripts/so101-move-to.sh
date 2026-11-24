@@ -36,4 +36,4 @@ exec docker exec -it geicar-so101 bash -lc '
     },
     planning_options: {plan_only: false}
   }" --feedback
-'
+' bash "$@"
