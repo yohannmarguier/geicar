@@ -19,10 +19,10 @@ class ArduinoSerialNode(Node):
             self.serial_conn = None
 
         # declaration des 4 publisher pour chaque puissance mesurer
-        self.pub_i1 = self.create_publisher(Float32, 'arduino/p1', 10)
-        self.pub_i2 = self.create_publisher(Float32, 'arduino/p2', 10)
-        self.pub_i3 = self.create_publisher(Float32, 'arduino/p3', 10)
-        self.pub_i4 = self.create_publisher(Float32, 'arduino/p4', 10)
+        self.pub_i1 = self.create_publisher(Float32, 'arduino/i1', 10)
+        self.pub_i2 = self.create_publisher(Float32, 'arduino/i2', 10)
+        self.pub_i3 = self.create_publisher(Float32, 'arduino/i3', 10)
+        self.pub_i4 = self.create_publisher(Float32, 'arduino/i4', 10)
 
         # timer pour publier tout les 0.01 seconde (100hz)
         self.timer = self.create_timer(0.01, self.read_and_publish)
